@@ -1,1 +1,25 @@
 @import 'ember-paper';
+@import 'color-palette';
+
+body > div.ember-view {
+  height: 100%;
+}
+
+[full-height], .full-height {
+  height: 100%;
+}
+
+md-toolbar.md-default-theme.main-toolbar {
+  background-color: color('grey', '100');
+  color: $dark-contrast-color;
+
+  md-icon, .md-button md-icon {
+    color: $dark-contrast-color;
+  }
+}
+
+md-sidenav {
+  md-list-item.active {
+    color: color('indigo');
+  }
+}

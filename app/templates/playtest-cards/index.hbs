@@ -1,0 +1,16 @@
+{{#paper-content class="md-padding"}}
+  <h3>Edit Decklist</h3>
+  {{#paper-form as |form|}}
+    {{form.input
+      label="Decklist"
+      textarea=true
+      value=playtestCards.decklist
+      onChange=(action (mut playtestCards.decklist))
+      required=true
+      customValidation=decklistValidation
+      block=true
+    }}
+    {{#paper-button primary=true disabled=form.isInvalid onClick=(transition-to "playtest-cards.print")}}Print Playtest Cards{{/paper-button}}
+  {{/paper-form}}
+{{/paper-content}}
+

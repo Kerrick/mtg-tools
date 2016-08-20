@@ -7,6 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('playtest-cards', function() {
+    this.route('print');
+  });
 });
 
 export default Router;
