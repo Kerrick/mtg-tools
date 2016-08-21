@@ -24,6 +24,10 @@ md-sidenav {
   }
 }
 
+.playtest-cards {
+  font-size: 0;
+}
+
 .playtest-card {
   position: relative;
   display: inline-block;
@@ -32,10 +36,6 @@ md-sidenav {
     content: attr(name);
     position: absolute;
     background: white;
-    width: 173px;
-    height: 124px;
-    top: 37px;
-    left: 20px;
     color: black;
     z-index: 1;
     font-family: sans-serif;
@@ -43,6 +43,28 @@ md-sidenav {
     font-size: 36px;
     padding: 5px;
     overflow: hidden;
+    width: 173px;
+    height: 124px;
+    top: 37px;
+    left: 20px;
+
+    @media print {
+      width: 46.6mm;
+      height: 33.3mm;
+      top: 10.1mm;
+      left: 5.4mm;
+    }
+  }
+
+  img {
+    width: 223px;
+    height: 310px;
+
+    // Actual Magic cards are 63x88, but we want a bit of leeway.
+    @media print {
+      width: 60mm;
+      height: auto;
+    }
   }
 }
 

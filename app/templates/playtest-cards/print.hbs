@@ -19,7 +19,7 @@
       {{/card.actions}}
     {{/paper-card}}
   {{/if}}
-  <div class="printable">
+  <div class="playtest-cards printable">
     {{#each desiredCards as |card|}}
       {{#each (repeat card.count) as |i|}}
         <div class="playtest-card" name={{card.printings.firstObject.name}}>
