@@ -75,7 +75,8 @@ md-sidenav {
 @media print {
   md-sidenav,
   md-toolbar,
-  md-card {
+  md-card,
+  .options {
     display: none !important;
   }
 
