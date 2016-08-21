@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'playtest-cards',
+    modulePrefix: 'mtg-tools',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',

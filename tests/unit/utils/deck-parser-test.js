@@ -1,4 +1,4 @@
-import deckParser from 'playtest-cards/utils/deck-parser';
+import deckParser from 'mtg-tools/utils/deck-parser';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | deck parser');

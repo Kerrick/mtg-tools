@@ -1,7 +1,7 @@
 {
-  "name": "playtest-cards",
+  "name": "mtg-tools",
   "version": "0.0.0",
-  "description": "Small description for playtest-cards goes here",
+  "description": "Small description for mtg-tools goes here",
   "private": true,
   "directories": {
     "doc": "doc",

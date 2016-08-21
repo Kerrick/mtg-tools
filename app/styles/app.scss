@@ -57,6 +57,10 @@ md-sidenav {
     display: none !important;
   }
 
+  body > div.ember-view {
+    height: auto;
+  }
+
   body * {
     visibility: hidden;
   }

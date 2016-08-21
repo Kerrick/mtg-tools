@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import deckParser from 'playtest-cards/utils/deck-parser';
+import deckParser from 'mtg-tools/utils/deck-parser';
 
 export default Ember.Controller.extend({
   mtg: Ember.inject.service(),
