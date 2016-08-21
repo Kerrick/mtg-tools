@@ -7,7 +7,6 @@
       value=playtestCards.decklist
       onChange=(action (mut playtestCards.decklist))
       required=true
-      customValidation=decklistValidation
       block=true
     }}
     {{#paper-button primary=true disabled=form.isInvalid onClick=(transition-to "playtest-cards.print")}}Print Playtest Cards{{/paper-button}}

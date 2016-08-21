@@ -7,28 +7,28 @@ module('Unit | Utility | deck parser');
 test('it works', function(assert) {
   const expected = {
     cards: [
-      { number: 4, name: `Master of Waves` },
-      { number: 2, name: `Tidebinder Mage` },
-      { number: 4, name: `Master of the Pearl Trident` },
+      { number: 4, name: `Aether Vial` },
+      { number: 4, name: `Cursecatcher` },
       { number: 2, name: `Dismember` },
+      { number: 16, name: `Island` },
+      { number: 2, name: `Kira, Great Glass-Spinner` },
+      { number: 4, name: `Lord of Atlantis` },
+      { number: 4, name: `Master of the Pearl Trident` },
+      { number: 4, name: `Master of Waves` },
+      { number: 4, name: `Merrow Reejerey` },
+      { number: 4, name: `Mutavault` },
+      { number: 4, name: `Silvergill Adept` },
       { number: 2, name: `Spell Pierce` },
       { number: 4, name: `Spreading Seas` },
-      { number: 4, name: `Cursecatcher` },
-      { number: 4, name: `Mutavault` },
-      { number: 4, name: `Merrow Reejerey` },
-      { number: 4, name: `Silvergill Adept` },
-      { number: 2, name: `Kira, Great Glass-Spinner` },
-      { number: 4, name: `Aether Vial` },
-      { number: 16, name: `Island` },
-      { number: 4, name: `Lord of Atlantis` },
+      { number: 2, name: `Tidebinder Mage` }
     ],
     sideboard: [
-      { number: 3, name: `Tectonic Edge` },
-      { number: 2, name: `Relic of Progenitus` },
-      { number: 2, name: `Gut Shot` },
-      { number: 2, name: `Negate` },
       { number: 3, name: `Chalice of the Void` },
+      { number: 2, name: `Gut Shot` },
       { number: 3, name: `Hurkyl's Recall` },
+      { number: 2, name: `Negate` },
+      { number: 2, name: `Relic of Progenitus` },
+      { number: 3, name: `Tectonic Edge` }
     ]
   };
 
@@ -156,11 +156,61 @@ Sideboard:
 `);
 
 
+  const result6 = deckParser(`Creatures:
+4 Master of Waves
+2 Tidebinder Mage
+4 Master of the Pearl Trident
+4 Lord of Atlantis
+4 Merrow Reejerey
+4 Silvergill Adept
+2 Kira, Great Glass-Spinner
+Spells:
+2 Dismember
+2 Spell Pierce
+4 Spreading Seas
+4 Cursecatcher
+Lands:
+4 Mutavault
+4 Aether Vial
+16 Island
+Sideboard:
+3 Tectonic Edge
+2 Relic of Progenitus
+2 Gut Shot
+2 Negate
+3 Chalice of the Void
+3 Hurkyl's Recall`);
+
+
+  const result7 = deckParser(`4 Master of Waves
+2 Tidebinder Mage
+4 Master of the Pearl Trident
+2 Dismember
+2 Spell Pierce
+4 Spreading Seas
+4 Cursecatcher
+4 Mutavault
+4 Merrow Reejerey
+4 Silvergill Adept
+2 Kira, Great Glass-Spinner
+4 Aether Vial
+16 Island
+4 Lord of Atlantis
+SB: 3 Tectonic Edge
+SB: 2 Relic of Progenitus
+SB: 2 Gut Shot
+SB: 2 Negate
+SB: 3 Chalice of the Void
+SB: 3 Hurkyl's Recall`);
+
+
   assert.propEqual(result1, expected, 'Simple list with sideboard after newline');
   assert.propEqual(result2, expected, 'Simple list with Sideboard label');
   assert.propEqual(result3, expected, 'List with 4x and "Sideboard:" label');
   assert.propEqual(result4, expected, 'Simple list with // and # comments');
   assert.propEqual(result5, expected, 'Simple list with extra newlines');
+  assert.propEqual(result6, expected, 'Simple list with headers and no sideboard newline');
+  assert.propEqual(result7, expected, 'Simple list with sideboard prefixed by SB:');
 });
 test('edge cases', function(assert) {
   assert.propEqual(deckParser(`4 Swords to Plowshares
@@ -168,10 +218,10 @@ test('edge cases', function(assert) {
 26 Island
 26 Plains`), {
     cards: [
-      { number: 4, name: 'Swords to Plowshares' },
       { number: 4, name: 'Counterspell' },
       { number: 26, name: 'Island' },
       { number: 26, name: 'Plains' },
+      { number: 4, name: 'Swords to Plowshares' }
     ],
     sideboard: []
   }, 'No sideboard');
@@ -182,10 +232,10 @@ Counterspell
 Island
 Plains`), {
     cards: [
-      { number: 1, name: 'Swords to Plowshares' },
       { number: 1, name: 'Counterspell' },
       { number: 1, name: 'Island' },
       { number: 1, name: 'Plains' },
+      { number: 1, name: 'Swords to Plowshares' }
     ],
     sideboard: []
   }, 'One-ofs if unspecified');
