@@ -27,7 +27,7 @@
   <div class="playtest-cards printable">
     {{#each (if showBasicLands desiredCards desiredCardsWithoutBasicLands) as |card|}}
       {{#each (repeat card.count) as |i|}}
-        <div class="playtest-card" name={{card.printings.lastObject.name}}>
+        <div name={{card.printings.lastObject.name}} class="playtest-card card-layout-{{card.printings.lastObject.layout}}">
           <img
             class="playtest-card-image"
             width="223"

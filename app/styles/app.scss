@@ -44,28 +44,32 @@ md-sidenav {
     overflow: hidden;
     word-break: normal;
     overflow-wrap: normal;
-    width: 173px;
-    height: 124px;
-    top: 37px;
-    left: 20px;
+    width: 48.4mm;
+    height: 34.8mm;
+    top: 9.3mm;
+    left: 4.6mm;
+  }
 
-    @media print {
-      width: 46.6mm;
-      height: 33.3mm;
-      top: 10.1mm;
-      left: 5.4mm;
-    }
+  &.card-layout-flip .huge-name {
+    top: 26.3mm;
+    height: 26mm;
+  }
+
+  &.card-layout-split .huge-name {
+    transform: -webkit-rotate(270deg);
+    transform: -moz-rotate(270deg);
+    transform: -ms-rotate(270deg);
+    transform: -o-rotate(270deg);
+    transform: rotate(270deg);
+    top: 29.9mm;
+    left: -15.8mm;
+    width: 71mm;
+    height: 21.2mm;
   }
 
   img {
-    width: 223px;
-    height: 310px;
-
-    // Actual Magic cards are 63x88, but we want a bit of leeway.
-    @media print {
-      width: 60mm;
-      height: auto;
-    }
+    width: 60mm;
+    height: auto;
   }
 }
 
