@@ -1,12 +1,10 @@
 const parseLines = (lines) => {
   return lines
-    .reject(l => l === '')
-    .reject(l => l.match(/^Sideboard:?$/))
-    .reject(l => l.match(/^(#|\/\/)/))
+    .reject(l => l === '' || l.match(/^Sideboard:?$/) || l.match(/^(#|\/\/)/))
     .map(l => {
       const matched = l.match(/^(?:(\d+)x?\w*)?(.+)$/);
       return {
-        number: parseInt(matched[1], 10),
+        number: parseInt(matched[1] || 1, 10),
         name: matched[2].trim()
       };
     })
@@ -14,9 +12,16 @@ const parseLines = (lines) => {
 };
 
 export const deckParser = (list) => {
-  const lines = list.split('\n').map(l => l.trim());
+  // Get rid of some unnecessary whitespace
+  let lines = list.split('\n').map(l => l.trim());
+  lines = lines.slice(lines.indexOf(lines.find(l => l !== '')));
+
+  // Do we have a sideboard?
   const sideIndex = lines.indexOf('');
-  const [mainboardLines, sideboardLines] = [lines.slice(0, sideIndex), lines.slice(sideIndex)];
+  let [mainboardLines, sideboardLines] = [lines, []];
+  if (sideIndex > -1) {
+    [mainboardLines, sideboardLines] = [lines.slice(0, sideIndex), lines.slice(sideIndex)];
+  }
 
   return {
     cards: parseLines(mainboardLines),

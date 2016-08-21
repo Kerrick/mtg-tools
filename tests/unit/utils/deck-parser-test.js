@@ -127,8 +127,66 @@ Sideboard:
 2 Negate
 3 Chalice of the Void
 3 Hurkyl's Recall`);
+
+
+  const result5 = deckParser(`
+
+4 Master of Waves
+2 Tidebinder Mage
+4 Master of the Pearl Trident
+2 Dismember
+2 Spell Pierce
+4 Spreading Seas
+4 Cursecatcher
+4 Mutavault
+4 Merrow Reejerey
+4 Silvergill Adept
+2 Kira, Great Glass-Spinner
+4 Aether Vial
+16 Island
+4 Lord of Atlantis
+
+3 Tectonic Edge
+2 Relic of Progenitus
+2 Gut Shot
+2 Negate
+3 Chalice of the Void
+3 Hurkyl's Recall
+
+`);
+
+
   assert.propEqual(result1, expected, 'Simple list with sideboard after newline');
   assert.propEqual(result2, expected, 'Simple list with Sideboard label');
   assert.propEqual(result3, expected, 'List with 4x and "Sideboard:" label');
   assert.propEqual(result4, expected, 'Simple list with // and # comments');
+  assert.propEqual(result5, expected, 'Simple list with extra newlines');
+});
+test('edge cases', function(assert) {
+  assert.propEqual(deckParser(`4 Swords to Plowshares
+4 Counterspell
+26 Island
+26 Plains`), {
+    cards: [
+      { number: 4, name: 'Swords to Plowshares' },
+      { number: 4, name: 'Counterspell' },
+      { number: 26, name: 'Island' },
+      { number: 26, name: 'Plains' },
+    ],
+    sideboard: []
+  }, 'No sideboard');
+
+
+  assert.propEqual(deckParser(`Swords to Plowshares
+Counterspell
+Island
+Plains`), {
+    cards: [
+      { number: 1, name: 'Swords to Plowshares' },
+      { number: 1, name: 'Counterspell' },
+      { number: 1, name: 'Island' },
+      { number: 1, name: 'Plains' },
+    ],
+    sideboard: []
+  }, 'One-ofs if unspecified');
 });
