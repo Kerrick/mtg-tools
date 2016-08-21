@@ -1,3 +1,38 @@
 {{#paper-content class="md-padding"}}
-  <pre>{{playtestCards.decklist}}</pre>
+  {{#if problemCards}}
+  {{#paper-card class="problem-cards" as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}There was a problem{{/text.headline}}
+          {{#text.subhead}}The following cards were not found:{{/text.subhead}}
+        {{/title.text}}
+      {{/card.title}}
+      {{#card.content}}
+        <ul>
+          {{#each problemCards as |card|}}
+            <li>{{card.name}}</li>
+          {{/each}}
+        </ul>
+      {{/card.content}}
+      {{#card.actions}}
+        {{#paper-button primary=true onClick=(transition-to "playtest-cards.index")}}Edit Decklist{{/paper-button}}
+      {{/card.actions}}
+    {{/paper-card}}
+  {{/if}}
+  <div class="printable">
+    {{#each desiredCards as |card|}}
+      {{#each (repeat card.count) as |i|}}
+        <div class="playtest-card" name={{card.printings.firstObject.name}}>
+          <img
+            class="playtest-card-image"
+            width="223"
+            height="312"
+            alt={{card.printings.firstObject.name}}
+            title={{concat card.printings.firstObject.name " - " card.printings.firstObject.set.code}}
+            src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.printings.firstObject.multiverseid}}&type=card"
+          />
+        </div>
+      {{/each}}
+    {{/each}}
+  </div>
 {{/paper-content}}

@@ -23,3 +23,45 @@ md-sidenav {
     color: color('indigo');
   }
 }
+
+.playtest-card {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: attr(name);
+    position: absolute;
+    background: white;
+    width: 173px;
+    height: 124px;
+    top: 37px;
+    left: 20px;
+    color: black;
+    z-index: 1;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    padding: 5px;
+    overflow: hidden;
+  }
+}
+
+.problem-cards {
+  max-width: 432px;
+}
+
+@media print {
+  md-sidenav,
+  md-toolbar,
+  md-card {
+    display: none !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .printable, .printable * {
+    visibility: visible;
+  }
+}
