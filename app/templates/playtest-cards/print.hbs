@@ -27,17 +27,25 @@
   <div class="playtest-cards printable">
     {{#each (if showBasicLands desiredCards desiredCardsWithoutBasicLands) as |card|}}
       {{#each (repeat card.count) as |i|}}
-        <div name={{card.printings.lastObject.name}} class="playtest-card card-layout-{{card.printings.lastObject.layout}}">
-          <img
-            class="playtest-card-image"
-            width="223"
-            height="312"
-            alt={{card.printings.lastObject.name}}
-            title={{concat card.printings.lastObject.name " - " card.printings.lastObject.set.code}}
-            src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.printings.lastObject.multiverseid}}&type=card"
-          />
-          <span class="huge-name" contenteditable>{{card.printings.lastObject.name}}</span>
-        </div>
+        {{#with card.printings.lastObject as |printing|}}
+          <div name={{printing.name}} class="playtest-card card-layout-{{printing.layout}}">
+            <img
+              class="playtest-card-image"
+              width="223"
+              height="312"
+              alt={{printing.name}}
+              title={{concat printing.name " - " printing.set.code}}
+              src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
+            />
+            <span class="huge-name" contenteditable oninput={{action "textEdited" card}}>
+              {{#if (find-by "card" card manualTextFixes)}}
+                {{get (find-by "card" card manualTextFixes) "text"}}
+              {{else}}
+                {{printing.name}}
+              {{/if}}
+            </span>
+          </div>
+        {{/with}}
       {{/each}}
     {{/each}}
   </div>
