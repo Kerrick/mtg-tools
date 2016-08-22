@@ -27,7 +27,7 @@
   <div class="playtest-cards printable">
     {{#each (if showBasicLands desiredCards desiredCardsWithoutBasicLands) as |card|}}
       {{#each (repeat card.count) as |i|}}
-        {{#with card.printings.lastObject as |printing|}}
+        {{#with (or (get (find-by "card" card printingSelections) "printing") card.printings.lastObject) as |printing|}}
           <div name={{printing.name}} class="playtest-card card-layout-{{printing.layout}}">
             <img
               class="playtest-card-image"
@@ -37,6 +37,13 @@
               title={{concat printing.name " - " printing.set.code}}
               src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
             />
+            <select class="printing-chooser" onchange={{action "printingChosen" card}}>
+              {{#each card.printings as |printingOption|}}
+                <option value={{printingOption.set.code}} selected={{eq printingOption printing}}>
+                  {{printingOption.set.name}}
+                </option>
+              {{/each}}
+            </select>
             <span class="huge-name" contenteditable oninput={{action "textEdited" card}}>
               {{#if (find-by "card" card manualTextFixes)}}
                 {{get (find-by "card" card manualTextFixes) "text"}}

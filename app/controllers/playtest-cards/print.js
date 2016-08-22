@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import deckParser from 'mtg-tools/utils/deck-parser';
-import rangy from 'rangy';
 
 export default Ember.Controller.extend({
   mtg: Ember.inject.service(),
@@ -35,20 +34,32 @@ export default Ember.Controller.extend({
    * user-input for manually fixing the text layout for print).
    */
   manualTextFixes: [],
-  fixText(card, text) {
-      const manualTextFixes = this.get('manualTextFixes');
-      const override = this.get('manualTextFixes').findBy('card', card);
+  /**
+   * Array of Objects withp properties card (the card object), and printing (the
+   * user-selected printing object).
+   */
+  printingSelections: [],
+  override(card, value, storageKey, valueKey) {
+      const storedValues = this.get(storageKey);
+      const override = storedValues.findBy('card', card);
       if (override) {
-        Ember.set(override, 'text', text);
+        Ember.set(override, valueKey, value);
       }
       else {
-        manualTextFixes.addObject({ card, text });
+        const obj = { card };
+        obj[valueKey] = value;
+        storedValues.addObject(obj);
       }
   },
   actions: {
     textEdited(card, event) {
-      this.fixText(card, event.target.innerHTML);
+      this.override(card, event.target.innerHTML, 'manualTextFixes', 'text');
       // TODO: Restore cursor position. Hard to do with contenteditable.
+    },
+    printingChosen(card, event) {
+      const setCode = event.target.options[event.target.selectedIndex].value;
+      const printing = Ember.get(card, 'printings').findBy('set.code', setCode);
+      this.override(card, printing, 'printingSelections', 'printing');
     }
   }
 });
