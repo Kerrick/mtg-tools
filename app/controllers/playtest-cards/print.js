@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
   },
   actions: {
     textEdited(card, event) {
-      this.override(card, event.target.innerHTML, 'manualTextFixes', 'text');
+      this.override(card, event.target.innerText, 'manualTextFixes', 'text');
       // TODO: Restore cursor position. Hard to do with contenteditable.
     },
     printingChosen(card, event) {
