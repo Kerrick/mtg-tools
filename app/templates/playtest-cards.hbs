@@ -1,30 +1,17 @@
-{{#paper-toolbar class="main-toolbar"}}
-  {{#paper-toolbar-tools}}
-    <div hide-gt-xs>
-      {{#paper-sidenav-toggle name="left" class="hide-gt-sm" as |toggleAction|}}
-        {{#paper-button iconButton=true onClick=(action toggleAction)}}
-          {{paper-icon "menu"}}
-        {{/paper-button}}
-      {{/paper-sidenav-toggle}}
-    </div>
-    <h2>
-      Playtest Card Printer
-    </h2>
-    <span class="flex"></span>
-    {{#if isInPrintView}}
-      {{#paper-button iconButton=true onClick=(transition-to "playtest-cards.index")}}
-        {{paper-icon "edit"}}
-      {{/paper-button}}
-      {{#paper-button iconButton=true onClick=(action "print")}}
-        {{paper-icon "print"}}
-      {{/paper-button}}
-    {{/if}}
-  {{/paper-toolbar-tools}}
-{{/paper-toolbar}}
-{{#if mtg.isLoading}}
-  <div full-height layout layout-align="center center">
-    {{paper-progress-circular}}
-  </div>
-{{else}}
+{{#main-toolbar}}
+  <h2>
+    Playtest Card Printer
+  </h2>
+  <span class="flex"></span>
+  {{#if isInPrintView}}
+    {{#paper-button iconButton=true onClick=(transition-to "playtest-cards.index")}}
+      {{paper-icon "edit"}}
+    {{/paper-button}}
+    {{#paper-button iconButton=true onClick=(action "print")}}
+      {{paper-icon "print"}}
+    {{/paper-button}}
+  {{/if}}
+{{/main-toolbar}}
+{{#mtg-loaded}}
   {{outlet}}
-{{/if}}
+{{/mtg-loaded}}

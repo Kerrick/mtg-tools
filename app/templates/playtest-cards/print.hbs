@@ -1,5 +1,5 @@
 {{#paper-content class="md-padding"}}
-  {{#if problemCards}}
+  {{#if decklist.problemCards}}
     {{#paper-card class="problem-cards" as |card|}}
       {{#card.title as |title|}}
         {{#title.text as |text|}}
@@ -9,7 +9,7 @@
       {{/card.title}}
       {{#card.content}}
         <ul>
-          {{#each problemCards as |card|}}
+          {{#each decklist.problemCards as |card|}}
             <li>{{card.name}}</li>
           {{/each}}
         </ul>
@@ -25,7 +25,7 @@
     {{/paper-switch}}
   </div>
   <div class="playtest-cards printable">
-    {{#each (if showBasicLands desiredCards desiredCardsWithoutBasicLands) as |card|}}
+    {{#each (if showBasicLands decklist.desiredCards decklist.desiredCardsWithoutBasicLands) as |card|}}
       {{#each (repeat card.count) as |i|}}
         {{#with (or (get (find-by "card" card printingSelections) "printing") card.printings.lastObject) as |printing|}}
           <div name={{printing.name}} class="playtest-card card-layout-{{printing.layout}}">

@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   mtg: Ember.inject.service(),
   application: Ember.inject.controller(),
-  decklist: '',
   isInPrintView: Ember.computed.equal('application.currentRouteName', 'playtest-cards.print'),
   actions: {
     print() {

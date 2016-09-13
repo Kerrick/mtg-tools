@@ -1,17 +1,8 @@
-{{#paper-toolbar class="main-toolbar"}}
-  {{#paper-toolbar-tools}}
-    <div hide-gt-xs>
-      {{#paper-sidenav-toggle name="left" class="hide-gt-sm" as |toggleAction|}}
-        {{#paper-button iconButton=true onClick=(action toggleAction)}}
-          {{paper-icon "menu"}}
-        {{/paper-button}}
-      {{/paper-sidenav-toggle}}
-    </div>
+{{#main-toolbar}}
     <h2>
       Kerrick&rsquo;s Magic: The Gathering Tools
     </h2>
-  {{/paper-toolbar-tools}}
-{{/paper-toolbar}}
+{{/main-toolbar}}
 {{#paper-content class="md-padding"}}
   <h3>Roadmap</h3>
   <h4>Deck Diff</h4>

@@ -1,0 +1,11 @@
+{{#paper-form as |form|}}
+  {{form.input
+    label="Decklist"
+    textarea=true
+    value=decklist.raw
+    onChange=(action (mut decklist.raw))
+    required=true
+    block=true
+  }}
+  {{yield form}}
+{{/paper-form}}
