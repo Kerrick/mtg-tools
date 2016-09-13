@@ -12,6 +12,7 @@
       {{#paper-list}}
         {{#paper-item class=(if (eq "index" currentRouteName) "active") onClick=(transition-to "index")}}Introduction{{/paper-item}}
         {{#paper-item class=(if (or (eq "playtest-cards.print" currentRouteName) (eq "playtest-cards.index" currentRouteName)) "active") onClick=(transition-to "playtest-cards")}}Playtest Card Printer{{/paper-item}}
+        {{#paper-item class=(if (eq "stream-view" currentRouteName) "active") onClick=(transition-to "stream-view")}}Stream View (beta){{/paper-item}}
       {{/paper-list}}
 
     {{/paper-content}}

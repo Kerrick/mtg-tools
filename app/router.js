@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('playtest-cards', function() {
     this.route('print');
   });
+  this.route('stream-view');
 });
 
 export default Router;

@@ -112,3 +112,41 @@ md-sidenav {
     visibility: visible;
   }
 }
+
+.stream-view-item {
+  height: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  width: 172px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid black;
+  border-top: none;
+
+  &:first-of-type {
+    border-top: 1px solid black;
+  }
+
+  .stream-view-item-content {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 0;
+    z-index: 2;
+    color: white;
+    font-weight: bold;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
+  }
+
+  .stream-view-item-background {
+    position: absolute;
+    //filter: blur(1px); // I can't decide if this is better.
+    left: -24px;
+    top: -75px; // Roughly along a "rule of thirds" line
+    z-index: 1;
+  }
+}

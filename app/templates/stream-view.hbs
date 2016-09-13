@@ -1,0 +1,46 @@
+{{#main-toolbar}}
+  <h2>
+    Stream View
+  </h2>
+{{/main-toolbar}}
+{{#mtg-loaded}}
+  {{#paper-content class="md-padding"}}
+    <div flex layout="row">
+      <div flex="50">
+        {{decklist-editor}}
+      </div>
+      <div flex="50">
+        <div class="temporary todo">
+          <h3>To Do:</h3>
+          <ul>
+            <li>Sideboard listed separately</li>
+            <li>Right-aligned mana costs</li>
+            <li>Mana symbols for mana costs</li>
+            <li>Slider to change size (zoom x&y? Just width?)</li>
+            <li>Is it worth doing printing selection like for playtest cards?</li>
+          </ul>
+        </div>
+        <div class="stream-view-items">
+          {{#each (sort-cards decklist.desiredCards) as |card|}}
+            {{#with card.printings.lastObject as |printing|}}
+              <div class="stream-view-item">
+                <div class="stream-view-item-content">
+                  {{card.count}}
+                  {{printing.name}}
+                  {{printing.manaCost}}
+                </div>
+                <img
+                    class="stream-view-item-background"
+                    width="223"
+                    height="312"
+                    alt={{printing.name}}
+                    src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
+                />
+              </div>
+            {{/with}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/paper-content}}
+{{/mtg-loaded}}
