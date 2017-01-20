@@ -7,11 +7,40 @@ export default Ember.Service.extend({
   mtg: inject.service(),
   raw: '',
   toCard(card) {
-      return {
-        count: card.number,
-        name: card.name,
-        printings: this.get('mtg').cardsNamed(card.name)
-      };
+    return {
+      count: card.number,
+      name: card.name,
+      printings: this.get('mtg').cardsNamed(card.name).sort((a, b) => {
+        if (a.set.type !== b.set.type) {
+          if (a.set.type === 'masterpiece') {
+            return 1;
+          }
+          else if (b.set.type === 'masterpiece') {
+            return -1;
+          }
+        }
+        if (a.set.onlineOnly === b.set.onlineOnly) {
+          if (a.set.releaseDate < b.set.releaseDate) {
+            return 1;
+          }
+          else if (a.set.releaseDate > b.set.releaseDate) {
+            return -1;
+          }
+          else {
+            return 0;
+          }
+        }
+        else if (a.set.onlineOnly) {
+          return 1;
+        }
+        else if (b.set.onlineOnly) {
+          return -1;
+        }
+        else {
+          return 0;
+        }
+      })
+    };
   },
   decklist: computed('raw', function() {
     return deckParser(this.get('raw'));
@@ -39,7 +68,7 @@ export default Ember.Service.extend({
       return card.printings[0].types.contains('Land') &&
         card.printings[0].supertypes &&
         card.printings[0].supertypes.contains('Basic')
-        ;
+      ;
     });
   }),
   problemCards: computed('mtgJsonCards.[]', function() {
