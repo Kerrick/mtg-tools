@@ -1,23 +1,40 @@
 import Ember from 'ember';
 import deckParser from 'mtg-tools/utils/deck-parser';
 
+const { inject, computed, isEmpty } = Ember;
+
 export default Ember.Service.extend({
-  mtg: Ember.inject.service(),
+  mtg: inject.service(),
   raw: '',
-  mtgJsonCards: Ember.computed('raw', function() {
-    const decklist = deckParser(this.get('raw'));
-    return decklist.cards.concat(decklist.sideboard).map(card => {
+  toCard(card) {
       return {
         count: card.number,
         name: card.name,
         printings: this.get('mtg').cardsNamed(card.name)
       };
-    });
+  },
+  decklist: computed('raw', function() {
+    return deckParser(this.get('raw'));
   }),
-  desiredCards: Ember.computed('mtgJsonCards.[]', function() {
-    return this.get('mtgJsonCards').reject(card => Ember.isEmpty(card.printings));
+  mtgJsonCards: computed('mtgJsonMaindeckCards', 'mtgJsonSideboardCards', function() {
+    return this.get('mtgJsonMaindeckCards')
+      .concat(this.get('mtgJsonSideboardCards'))
+    ;
   }),
-  desiredCardsWithoutBasicLands: Ember.computed('desiredCards', function() {
+  mtgJsonMaindeckCards: computed('decklist', function() {
+    return this.get('decklist.cards')
+      .map(x => this.toCard(x))
+      .reject(card => isEmpty(card.printings))
+    ;
+  }),
+  mtgJsonSideboardCards: computed('decklist', function() {
+    return this.get('decklist.sideboard')
+      .map(x => this.toCard(x))
+      .reject(card => isEmpty(card.printings))
+    ;
+  }),
+  desiredCards: computed.readOnly('mtgJsonCards'),
+  desiredCardsWithoutBasicLands: computed('desiredCards', function() {
     return this.get('desiredCards').reject(card => {
       return card.printings[0].types.contains('Land') &&
         card.printings[0].supertypes &&
@@ -25,7 +42,11 @@ export default Ember.Service.extend({
         ;
     });
   }),
-  problemCards: Ember.computed('mtgJsonCards.[]', function() {
-    return this.get('mtgJsonCards').filter(card => Ember.isEmpty(card.printings));
+  problemCards: computed('mtgJsonCards.[]', function() {
+    const decklist = this.get('decklist');
+    return decklist.cards.concat(decklist.sideboard)
+      .map(x => this.toCard(x))
+      .filter(card => isEmpty(card.printings))
+    ;
   })
 });

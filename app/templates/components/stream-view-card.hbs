@@ -1,0 +1,16 @@
+{{#with card.printings.firstObject as |printing|}}
+  <div class="stream-view-item">
+    <div class="stream-view-item-content">
+      {{card.count}}
+      {{printing.name}}
+      {{!printing.manaCost}}
+    </div>
+    <img
+        class="stream-view-item-background"
+        width="223"
+        height="312"
+        alt={{printing.name}}
+        src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
+    />
+  </div>
+{{/with}}

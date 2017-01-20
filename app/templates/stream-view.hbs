@@ -13,7 +13,6 @@
         <div class="temporary todo">
           <h3>To Do:</h3>
           <ul>
-            <li>Sideboard listed separately</li>
             <li>Right-aligned mana costs</li>
             <li>Mana symbols for mana costs</li>
             <li>Slider to change size (zoom x&y? Just width?)</li>
@@ -21,23 +20,12 @@
           </ul>
         </div>
         <div class="stream-view-items">
-          {{#each (sort-cards decklist.desiredCards) as |card|}}
-            {{#with card.printings.lastObject as |printing|}}
-              <div class="stream-view-item">
-                <div class="stream-view-item-content">
-                  {{card.count}}
-                  {{printing.name}}
-                  {{!printing.manaCost}}
-                </div>
-                <img
-                    class="stream-view-item-background"
-                    width="223"
-                    height="312"
-                    alt={{printing.name}}
-                    src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
-                />
-              </div>
-            {{/with}}
+          {{#each (sort-cards decklist.mtgJsonMaindeckCards) as |card|}}
+            {{stream-view-card card=card}}
+          {{/each}}
+          <br /> {{!-- TODO: Better division --}}
+          {{#each (sort-cards decklist.mtgJsonSideboardCards) as |card|}}
+            {{stream-view-card card=card}}
           {{/each}}
         </div>
       </div>
