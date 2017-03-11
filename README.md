@@ -41,7 +41,9 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+0. `git checkout master`
+0. `ember github-pages:commit --message "GH Pages Commit Message"`
+0. `git push origin gh-pages:gh-pages`
 
 ## Further Reading / Useful Links
 

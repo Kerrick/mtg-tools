@@ -10,16 +10,15 @@ export default Ember.Controller.extend({
   listenToDecklist: Ember.on('init', function() {
     this.get('decklist').on('rawUpdated', this, this.decklistToQueryParams);
   }),
-  listenToDeck: Ember.observer('deck', function() {
+  deckFromUrl: Ember.on('init', function() {
+    // We're only doing this on page load because it's only useful when linked to
     this.get('mtg.allSets').then(() => {
       const decoded = decode(this.get('deck'), id => this.get('mtg').nameForMultiverseid(id));
       this.set('decklist.raw', unparse(decoded));
     });
   }),
   decklistToQueryParams() {
-    const encoded = encode(this.get('decklist'));
-    Ember.Logger.log('ENCODED', encoded);
-    this.set('deck', encoded);
+    this.set('deck', encode(this.get('decklist')));
   },
   isSidenavOpen: false
 });

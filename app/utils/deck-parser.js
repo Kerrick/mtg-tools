@@ -50,7 +50,10 @@ export const parse = (list) => {
 
 export const unparse = (parsed) => {
   return [parsed.cards, parsed.sideboard].map(segment => {
-    return segment.map(card => `${card.number} ${card.name}`).join('\n');
+    return segment.map(card => {
+      if (!card.number || !card.name) { return null; }
+      return `${card.number} ${card.name}`
+    }).compact().join('\n');
   }).join('\n\n');
 };
 

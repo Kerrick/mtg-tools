@@ -44,6 +44,7 @@ export default Ember.Service.extend({
     return cards;
   },
   nameForMultiverseid(id) {
-    return firstMatch(this.get('allSets.content'), card => card.multiverseid === id).name;
+    const found = firstMatch(this.get('allSets.content'), card => card.multiverseid === id)
+    return found ? found.name : null;
   }
 });
