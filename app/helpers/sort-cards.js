@@ -28,7 +28,6 @@ export function sortCards([cards]) {
     if (aPrinting.name > bPrinting.name) { return 1; }
     return 0;
   });
-  return params;
 }
 
 export default Ember.Helper.helper(sortCards);

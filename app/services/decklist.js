@@ -1,11 +1,21 @@
 import Ember from 'ember';
-import deckParser from 'mtg-tools/utils/deck-parser';
+import { parse } from 'mtg-tools/utils/deck-parser';
 
 const { inject, computed, isEmpty } = Ember;
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(Ember.Evented, {
   mtg: inject.service(),
-  raw: '',
+  raw: Ember.computed('_raw', {
+    get() {
+      return this.get('_raw');
+    },
+    set(key, value) {
+      this.set('_raw', value);
+      Ember.run.next(() => this.trigger('rawUpdated', value));
+      return value;
+    }
+  }),
+  _raw: '',
   toCard(card) {
     return {
       count: card.number,
@@ -43,7 +53,7 @@ export default Ember.Service.extend({
     };
   },
   decklist: computed('raw', function() {
-    return deckParser(this.get('raw'));
+    return parse(this.get('raw'));
   }),
   mtgJsonCards: computed('mtgJsonMaindeckCards', 'mtgJsonSideboardCards', function() {
     return this.get('mtgJsonMaindeckCards')

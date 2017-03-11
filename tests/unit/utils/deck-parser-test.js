@@ -1,4 +1,4 @@
-import deckParser from 'mtg-tools/utils/deck-parser';
+import { parse } from 'mtg-tools/utils/deck-parser';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | deck parser');
@@ -33,7 +33,7 @@ test('it works', function(assert) {
   };
 
 
-  const result1 = deckParser(`4 Master of Waves
+  const result1 = parse(`4 Master of Waves
 2 Tidebinder Mage
 4 Master of the Pearl Trident
 2 Dismember
@@ -56,7 +56,7 @@ test('it works', function(assert) {
 3 Hurkyl's Recall`);
 
 
-  const result2 = deckParser(`4 Master of Waves
+  const result2 = parse(`4 Master of Waves
 2 Tidebinder Mage
 4 Master of the Pearl Trident
 2 Dismember
@@ -80,7 +80,7 @@ Sideboard
 3 Hurkyl's Recall`);
 
 
-  const result3 = deckParser(`4x Master of Waves
+  const result3 = parse(`4x Master of Waves
 2x Tidebinder Mage
 4x Master of the Pearl Trident
 2x Dismember
@@ -104,7 +104,7 @@ Sideboard:
 3x Hurkyl's Recall`);
 
 
-  const result4 = deckParser(`4 Master of Waves
+  const result4 = parse(`4 Master of Waves
 // Not sure if I want Tidebinder Mage in this metagame
 2 Tidebinder Mage
 4 Master of the Pearl Trident
@@ -129,7 +129,7 @@ Sideboard:
 3 Hurkyl's Recall`);
 
 
-  const result5 = deckParser(`
+  const result5 = parse(`
 
 4 Master of Waves
 2 Tidebinder Mage
@@ -156,7 +156,7 @@ Sideboard:
 `);
 
 
-  const result6 = deckParser(`Creatures:
+  const result6 = parse(`Creatures:
 4 Master of Waves
 2 Tidebinder Mage
 4 Master of the Pearl Trident
@@ -182,7 +182,7 @@ Sideboard:
 3 Hurkyl's Recall`);
 
 
-  const result7 = deckParser(`4 Master of Waves
+  const result7 = parse(`4 Master of Waves
 2 Tidebinder Mage
 4 Master of the Pearl Trident
 2 Dismember
@@ -213,7 +213,7 @@ SB: 3 Hurkyl's Recall`);
   assert.propEqual(result7, expected, 'Simple list with sideboard prefixed by SB:');
 });
 test('edge cases', function(assert) {
-  assert.propEqual(deckParser(`4 Swords to Plowshares
+  assert.propEqual(parse(`4 Swords to Plowshares
 4 Counterspell
 26 Island
 26 Plains`), {
@@ -227,7 +227,7 @@ test('edge cases', function(assert) {
   }, 'No sideboard');
 
 
-  assert.propEqual(deckParser(`Swords to Plowshares
+  assert.propEqual(parse(`Swords to Plowshares
 Counterspell
 Island
 Plains`), {

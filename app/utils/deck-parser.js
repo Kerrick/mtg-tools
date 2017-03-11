@@ -15,7 +15,7 @@ const parseLines = (lines) => {
 const matchesSideboardLabel = line => line.match(/^SB:/);
 const matchesSideboardHeader = line => line.match(/^Sideboard/);
 
-export const deckParser = (list) => {
+export const parse = (list) => {
   // Get rid of some unnecessary whitespace
   let lines = list.split('\n').map(l => l.trim());
   lines = lines.slice(lines.indexOf(lines.find(l => l !== '')));
@@ -48,4 +48,13 @@ export const deckParser = (list) => {
   };
 };
 
-export default deckParser;
+export const unparse = (parsed) => {
+  return [parsed.cards, parsed.sideboard].map(segment => {
+    return segment.map(card => `${card.number} ${card.name}`).join('\n');
+  }).join('\n\n');
+};
+
+export default {
+  parse,
+  unparse
+}
