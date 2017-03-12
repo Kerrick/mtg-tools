@@ -19,4 +19,5 @@ export default Ember.Component.extend({
       return !card.printings[0].types.includes('Land') && !card.printings[0].types.includes('Creature');
     });
   }),
+  sideboard: computed.readOnly('decklist.mtgJsonSideboardCards')
 });

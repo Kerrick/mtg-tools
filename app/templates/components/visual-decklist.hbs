@@ -2,7 +2,7 @@
   <div flex="50">
     {{#if creatures}}
       {{#paper-list}}
-        {{#paper-subheader}}Creatures{{/paper-subheader}}
+        {{#paper-subheader}}Creatures ({{sum-cards creatures}}){{/paper-subheader}}
         {{#each (sort-cards creatures) as |card|}}
           {{visual-decklist/card card=card}}
         {{/each}}
@@ -10,7 +10,7 @@
     {{/if}}
     {{#if spells}}
       {{#paper-list}}
-        {{#paper-subheader}}Spells{{/paper-subheader}}
+        {{#paper-subheader}}Spells ({{sum-cards spells}}){{/paper-subheader}}
         {{#each (sort-cards spells) as |card|}}
           {{visual-decklist/card card=card}}
         {{/each}}
@@ -20,16 +20,16 @@
   <div flex="50">
     {{#if lands}}
       {{#paper-list}}
-        {{#paper-subheader}}Lands{{/paper-subheader}}
+        {{#paper-subheader}}Lands ({{sum-cards lands}}){{/paper-subheader}}
         {{#each (sort-cards lands) as |card|}}
           {{visual-decklist/card card=card}}
         {{/each}}
       {{/paper-list}}
     {{/if}}
-    {{#if decklist.mtgJsonSideboardCards}}
+    {{#if sideboard}}
       {{#paper-list}}
-        {{#paper-subheader}}Sideboard{{/paper-subheader}}
-        {{#each (sort-cards decklist.mtgJsonSideboardCards) as |card|}}
+        {{#paper-subheader}}Sideboard ({{sum-cards sideboard}}){{/paper-subheader}}
+        {{#each (sort-cards sideboard) as |card|}}
           {{visual-decklist/card card=card}}
         {{/each}}
       {{/paper-list}}
