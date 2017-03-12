@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('print');
   });
   this.route('stream-view');
+  this.route('share');
 });
 
 export default Router;

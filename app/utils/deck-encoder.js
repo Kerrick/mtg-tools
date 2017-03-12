@@ -3,6 +3,7 @@ export const encode = decklist => {
   const encode = arr => arr.map(x => x.join(':')).join(',');
   const maindeck = decklist.get('mtgJsonMaindeckCards').map(countsAndIds);
   const sideboard = decklist.get('mtgJsonSideboardCards').map(countsAndIds);
+  if (maindeck.length === 0 && sideboard.length === 0) { return ''; }
   return `${encode(maindeck)}|${encode(sideboard)}`;
 };
 

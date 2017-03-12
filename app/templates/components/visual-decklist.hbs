@@ -1,0 +1,39 @@
+<div flex layout-gt-xs="row" class="visual-decklist">
+  <div flex="50">
+    {{#if creatures}}
+      {{#paper-list}}
+        {{#paper-subheader}}Creatures{{/paper-subheader}}
+        {{#each (sort-cards creatures) as |card|}}
+          {{visual-decklist/card card=card}}
+        {{/each}}
+      {{/paper-list}}
+    {{/if}}
+    {{#if spells}}
+      {{#paper-list}}
+        {{#paper-subheader}}Spells{{/paper-subheader}}
+        {{#each (sort-cards spells) as |card|}}
+          {{visual-decklist/card card=card}}
+        {{/each}}
+      {{/paper-list}}
+    {{/if}}
+  </div>
+  <div flex="50">
+    {{#if lands}}
+      {{#paper-list}}
+        {{#paper-subheader}}Lands{{/paper-subheader}}
+        {{#each (sort-cards lands) as |card|}}
+          {{visual-decklist/card card=card}}
+        {{/each}}
+      {{/paper-list}}
+    {{/if}}
+    {{#if decklist.mtgJsonSideboardCards}}
+      {{#paper-list}}
+        {{#paper-subheader}}Sideboard{{/paper-subheader}}
+        {{#each (sort-cards decklist.mtgJsonSideboardCards) as |card|}}
+          {{visual-decklist/card card=card}}
+        {{/each}}
+      {{/paper-list}}
+    {{/if}}
+  </div>
+</div>
+
