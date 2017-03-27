@@ -1,9 +1,13 @@
 {{#with card.printings.firstObject as |printing|}}
   <div class="stream-view-item">
-    <div class="stream-view-item-content">
+    <div class="stream-view-item-count">
       {{card.count}}
+    </div>
+    <div class="stream-view-item-content">
       {{printing.name}}
-      {{!printing.manaCost}}
+    </div>
+    <div class="stream-view-item-cost">
+      {{mana-cost cost=printing.manaCost}}
     </div>
     <img
         class="stream-view-item-background"

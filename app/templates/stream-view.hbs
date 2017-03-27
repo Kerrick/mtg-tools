@@ -10,15 +10,6 @@
         {{decklist-editor}}
       </div>
       <div flex="50">
-        <div class="temporary todo">
-          <h3>To Do:</h3>
-          <ul>
-            <li>Right-aligned mana costs</li>
-            <li>Mana symbols for mana costs</li>
-            <li>Slider to change size (zoom x&y? Just width?)</li>
-            <li>Is it worth doing printing selection like for playtest cards?</li>
-          </ul>
-        </div>
         <div class="stream-view-items">
           {{#each (sort-cards decklist.mtgJsonMaindeckCards) as |card|}}
             {{stream-view-card card=card}}
