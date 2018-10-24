@@ -1,0 +1,1 @@
+[2,"Logger",13,"app/controllers/playtest-cards.js","    goToPrintView() {\n      this.transitionToRoute('playtest-cards.print');\n      Ember.Logger.error('Not Implmented');\n    }\n  }"]

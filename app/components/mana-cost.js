@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   //region Attributes
   cost: '',
   //endregion
@@ -10,10 +11,10 @@ export default Ember.Component.extend({
   //endregion
 
   //region Compted Properties
-  symbols: Ember.computed('cost', function() {
+  symbols: computed('cost', function() {
     return (this.get('cost') || '').match(/\{.+?\}/g) || [];
   }),
-  filenames: Ember.computed('symbols.[]', function() {
+  filenames: computed('symbols.[]', function() {
     return this.get('symbols').map(symbol => {
       return `${symbol.replace(/\W/g, '')}`;
     });

@@ -1,9 +1,12 @@
+import { equal } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Controller, { inject as controller } from '@ember/controller';
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  mtg: Ember.inject.service(),
-  application: Ember.inject.controller(),
-  isInPrintView: Ember.computed.equal('application.currentRouteName', 'playtest-cards.print'),
+export default Controller.extend({
+  mtg: service(),
+  application: controller(),
+  isInPrintView: equal('application.currentRouteName', 'playtest-cards.print'),
   actions: {
     print() {
       window.print();

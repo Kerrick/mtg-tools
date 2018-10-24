@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { set, get } from '@ember/object';
+import Controller, { inject as controller } from '@ember/controller';
 
-const { inject } = Ember;
-
-export default Ember.Controller.extend({
-  mtg: inject.service(),
-  decklist: inject.service(),
-  playtestCards: Ember.inject.controller(),
+export default Controller.extend({
+  mtg: service(),
+  decklist: service(),
+  playtestCards: controller(),
   showBasicLands: true,
   /**
    * Array of Objects with properties card (the card object), and text (the
@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
       const storedValues = this.get(storageKey);
       const override = storedValues.findBy('card', card);
       if (override) {
-        Ember.set(override, valueKey, value);
+        set(override, valueKey, value);
       }
       else {
         const obj = { card };
@@ -36,7 +36,7 @@ export default Ember.Controller.extend({
     },
     printingChosen(card, event) {
       const setCode = event.target.options[event.target.selectedIndex].value;
-      const printing = Ember.get(card, 'printings').findBy('set.code', setCode);
+      const printing = get(card, 'printings').findBy('set.code', setCode);
       this.override(card, printing, 'printingSelections', 'printing');
     }
   }

@@ -1,4 +1,11 @@
-import Ember from 'ember';
+import { copy } from '@ember/object/internals';
+import { readOnly } from '@ember/object/computed';
+import $ from 'jquery';
+import { resolve } from 'rsvp';
+import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
+import ObjectProxy from '@ember/object/proxy';
+import { computed } from '@ember/object';
+import Service from '@ember/service';
 
 const firstMatch = (allSets, test) => {
   const allSetCodes = Object.keys(allSets).reverse();
@@ -18,10 +25,10 @@ const firstMatch = (allSets, test) => {
   return foundCard;
 };
 
-export default Ember.Service.extend({
-  allSets: Ember.computed(function() {
-    return Ember.ObjectProxy.extend(Ember.PromiseProxyMixin).create({
-      promise: Ember.RSVP.resolve(Ember.$.ajax({
+export default Service.extend({
+  allSets: computed(function() {
+    return ObjectProxy.extend(PromiseProxyMixin).create({
+      promise: resolve($.ajax({
         url: 'https://mtgjson.com/json/AllSets-x.jsonp',
         dataType: 'jsonp',
         cache: true,
@@ -29,14 +36,14 @@ export default Ember.Service.extend({
       }))
     });
   }),
-  isLoading: Ember.computed.readOnly('allSets.isPending'),
+  isLoading: readOnly('allSets.isPending'),
   cardsNamed(name) {
     const cards = [];
     Object.keys(this.get('allSets.content')).filter(setCode => {
       const found = this.get(`allSets.content.${setCode}.cards`).find(card => card.name === name);
       if (!found || !found.multiverseid) { return false; }
-      const card = Ember.copy(found, true);
-      card.set = Ember.copy(this.get(`allSets.content.${setCode}`), false);
+      const card = copy(found, true);
+      card.set = copy(this.get(`allSets.content.${setCode}`), false);
       delete card.set.cards;
       cards.push(card);
       return true;

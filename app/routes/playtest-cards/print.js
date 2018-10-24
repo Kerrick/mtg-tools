@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { isBlank } from '@ember/utils';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
-  decklist: Ember.inject.service(),
+export default Route.extend({
+  decklist: service(),
   activate() {
     // This page is pretty useless if they haven't given us a decklist.
-    if (Ember.isBlank(this.get('decklist.raw'))) {
+    if (isBlank(this.get('decklist.raw'))) {
       this.replaceWith('playtest-cards.index');
     }
   }

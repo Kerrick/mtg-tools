@@ -1,6 +1,7 @@
+import Component from '@ember/component';
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+export default Component.extend({
   actions: {
     gatherer(printing) {
       Ember.Logger.log('GATHERER ACTION');

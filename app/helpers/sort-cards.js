@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 const typeOrder = [
   'Creature',
@@ -30,4 +30,4 @@ export function sortCards([cards]) {
   });
 }
 
-export default Ember.Helper.helper(sortCards);
+export default helper(sortCards);

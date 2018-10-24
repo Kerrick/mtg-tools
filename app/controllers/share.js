@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
+import Controller, { inject as controller } from '@ember/controller';
+import { isBlank } from '@ember/utils';
 
-const { computed, isBlank } = Ember;
-
-export default Ember.Controller.extend({
-  decklist: Ember.inject.service(),
-  application: Ember.inject.controller(),
+export default Controller.extend({
+  decklist: service(),
+  application: controller(),
   isInEditView: true,
-  determineEditState: Ember.on('init', function() {
+  determineEditState: on('init', function() {
     if (!isBlank(this.get('application.deck'))) {
       this.set('isInEditView', false);
     }

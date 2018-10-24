@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 
-const { computed } = Ember;
-
-export default Ember.Component.extend({
-  decklist: Ember.inject.service(),
+export default Component.extend({
+  decklist: service(),
   lands: computed('decklist.mtgJsonMaindeckCards.[]', function() {
     return this.get('decklist.mtgJsonMaindeckCards').filter(card => {
       return card.printings[0].types.includes('Land');
@@ -19,5 +20,5 @@ export default Ember.Component.extend({
       return !card.printings[0].types.includes('Land') && !card.printings[0].types.includes('Creature');
     });
   }),
-  sideboard: computed.readOnly('decklist.mtgJsonSideboardCards')
+  sideboard: readOnly('decklist.mtgJsonSideboardCards')
 });

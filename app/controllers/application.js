@@ -1,16 +1,18 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 import { encode, decode } from 'mtg-tools/utils/deck-encoder';
 import { unparse } from 'mtg-tools/utils/deck-parser';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   queryParams: ['deck'],
   deck: '',
-  decklist: Ember.inject.service(),
-  mtg: Ember.inject.service(),
-  listenToDecklist: Ember.on('init', function() {
+  decklist: service(),
+  mtg: service(),
+  listenToDecklist: on('init', function() {
     this.get('decklist').on('rawUpdated', this, this.decklistToQueryParams);
   }),
-  deckFromUrl: Ember.on('init', function() {
+  deckFromUrl: on('init', function() {
     // We're only doing this on page load because it's only useful when linked to
     this.get('mtg.allSets').then(() => {
       const decoded = decode(this.get('deck'), id => this.get('mtg').nameForMultiverseid(id));

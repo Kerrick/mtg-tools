@@ -1,17 +1,20 @@
-import Ember from 'ember';
+import { readOnly } from '@ember/object/computed';
+import { next } from '@ember/runloop';
+import Evented from '@ember/object/evented';
+import Service, { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 import { parse } from 'mtg-tools/utils/deck-parser';
 
-const { inject, computed, isEmpty } = Ember;
-
-export default Ember.Service.extend(Ember.Evented, {
-  mtg: inject.service(),
-  raw: Ember.computed('_raw', {
+export default Service.extend(Evented, {
+  mtg: service(),
+  raw: computed('_raw', {
     get() {
       return this.get('_raw');
     },
     set(key, value) {
       this.set('_raw', value);
-      Ember.run.next(() => this.trigger('rawUpdated', value));
+      next(() => this.trigger('rawUpdated', value));
       return value;
     }
   }),
@@ -72,7 +75,7 @@ export default Ember.Service.extend(Ember.Evented, {
       .reject(card => isEmpty(card.printings))
     ;
   }),
-  desiredCards: computed.readOnly('mtgJsonCards'),
+  desiredCards: readOnly('mtgJsonCards'),
   desiredCardsWithoutBasicLands: computed('desiredCards', function() {
     return this.get('desiredCards').reject(card => {
       return card.printings[0].types.contains('Land') &&
