@@ -1,5 +1,5 @@
 export const encode = decklist => {
-  const countsAndIds = card => [card.printings[0].multiverseid, card.count];
+  const countsAndIds = card => [card.printings[0].multiverseId, card.count];
   const encode = arr => arr.map(x => x.join(':')).join(',');
   const maindeck = decklist.get('mtgJsonMaindeckCards').map(countsAndIds);
   const sideboard = decklist.get('mtgJsonSideboardCards').map(countsAndIds);
@@ -19,10 +19,10 @@ export const decode = (encoded, findName) => {
       ;
     })
   ;
-  const toParsedLine = ([multiverseid, count]) => {
+  const toParsedLine = ([multiverseId, count]) => {
     return {
       number: count,
-      name: findName(multiverseid)
+      name: findName(multiverseId)
     };
   };
   return {

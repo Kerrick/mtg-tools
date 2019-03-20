@@ -1,7 +1,7 @@
 {{#with card.printings.firstObject as |printing|}}
   {{#paper-item class="md-2-line" onClick=(action "gatherer" printing)}}
     <div class="card-image md-avatar"
-      style="background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card')"
+      style="background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseId={{printing.multiverseId}}&type=card')"
     >
       <span class="card-count">{{card.count}}</span>
     </div>

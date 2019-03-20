@@ -12,6 +12,7 @@ Router.map(function() {
   });
   this.route('stream-view');
   this.route('share');
+  this.route('triplets');
 });
 
 export default Router;

@@ -28,30 +28,12 @@
     {{#each (if showBasicLands decklist.desiredCards decklist.desiredCardsWithoutBasicLands) as |card|}}
       {{#each (repeat card.count) as |i|}}
         {{#with (or (get (find-by "card" card printingSelections) "printing") card.printings.firstObject) as |printing|}}
-          <div name={{printing.name}} class="playtest-card card-layout-{{printing.layout}}">
-            <img
-              class="playtest-card-image"
-              width="223"
-              height="312"
-              alt={{printing.name}}
-              title={{concat printing.name " - " printing.set.code}}
-              src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{printing.multiverseid}}&type=card"
-            />
-            <select class="printing-chooser" onchange={{action "printingChosen" card}}>
-              {{#each card.printings as |printingOption|}}
-                <option value={{printingOption.set.code}} selected={{eq printingOption printing}}>
-                  {{printingOption.set.name}}
-                </option>
-              {{/each}}
-            </select>
-            <span class="huge-name" contenteditable oninput={{action "textEdited" card}}>
-              {{#if (find-by "card" card manualTextFixes)}}
-                {{get (find-by "card" card manualTextFixes) "text"}}
-              {{else}}
-                {{printing.name}}
-              {{/if}}
-            </span>
-          </div>
+          {{playtest-card
+            card=card
+            printing=printing
+            choose-printing=(action "printingChosen" card)
+            edit-text=(action "textEdited" card)
+          }}
         {{/with}}
       {{/each}}
     {{/each}}

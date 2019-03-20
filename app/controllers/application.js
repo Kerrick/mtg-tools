@@ -15,7 +15,7 @@ export default Controller.extend({
   deckFromUrl: on('init', function() {
     // We're only doing this on page load because it's only useful when linked to
     this.get('mtg.allSets').then(() => {
-      const decoded = decode(this.get('deck'), id => this.get('mtg').nameForMultiverseid(id));
+      const decoded = decode(this.get('deck'), id => this.get('mtg').nameFormultiverseId(id));
       this.set('decklist.raw', unparse(decoded));
     });
   }),

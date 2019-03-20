@@ -1,1 +1,1 @@
-[2,"Logger",6,"app/components/visual-decklist/card.js","  actions: {\n    gatherer(printing) {\n      Ember.Logger.log('GATHERER ACTION');\n      window.open(`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${printing.multiverseid}`);\n    }"]
+[2,"Logger",6,"app/components/visual-decklist/card.js","  actions: {\n    gatherer(printing) {\n      Ember.Logger.log('GATHERER ACTION');\n      window.open(`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseId=${printing.multiverseId}`);\n    }"]
