@@ -1,17 +1,12 @@
-{{#main-toolbar}}
-  <h2>
-    Playtest Card Printer
-  </h2>
-  <span class="flex"></span>
-  {{#if isInPrintView}}
-    {{#paper-button iconButton=true onClick=(transition-to "playtest-cards.index")}}
-      {{paper-icon "edit"}}
-    {{/paper-button}}
-    {{#paper-button iconButton=true onClick=(action "print")}}
-      {{paper-icon "print"}}
-    {{/paper-button}}
-  {{/if}}
-{{/main-toolbar}}
-{{#mtg-loaded}}
-  {{outlet}}
-{{/mtg-loaded}}
+<h2>
+  Playtest Card Printer
+</h2>
+{{#if isInPrintView}}
+  {{#link-to "playtest-cards.index"}}
+    (edit)
+  {{/link-to}}
+  <button onclick={{action "print"}}>
+    Print
+  </button>
+{{/if}}
+{{#mtg-loaded}}{{outlet}}{{/mtg-loaded}}

@@ -1,7 +1,8 @@
-{{#paper-content class="md-padding"}}
-  <h3>Edit Decklist</h3>
-  {{#decklist-editor as |form|}}
-    {{#paper-button primary=true disabled=form.isInvalid onClick=(transition-to "playtest-cards.print")}}Print Playtest Cards{{/paper-button}}
-  {{/decklist-editor}}
-{{/paper-content}}
-
+<h3>
+  Edit Decklist
+</h3>
+{{#decklist-editor as |form|}}
+  {{#link-to "playtest-cards.print" disabled=form.isInvalid}}
+    Print Playtest Cards
+  {{/link-to}}
+{{/decklist-editor}}

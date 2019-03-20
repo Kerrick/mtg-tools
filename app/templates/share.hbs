@@ -1,30 +1,27 @@
-{{#main-toolbar}}
-  <h2>
-    Share a Deck
-  </h2>
-  <span class="flex"></span>
+<h2>
+  Share a Deck
+</h2>
+<button onclick={{toggle "isInEditView" this}}>
   {{#if isInEditView}}
-    {{#paper-button iconButton=true onClick=(action (toggle "isInEditView" this))}}
-      {{paper-icon "view"}}
-    {{/paper-button}}
+    View
   {{else}}
-    {{#paper-button iconButton=true onClick=(action (toggle "isInEditView" this))}}
-      {{paper-icon "edit"}}
-    {{/paper-button}}
+    Edit
   {{/if}}
-{{/main-toolbar}}
+</button>
 {{#mtg-loaded}}
-  {{#paper-content class="md-padding"}}
-    {{#if isInEditView}}
-      <h3>Edit Decklist</h3>
-      {{#decklist-editor as |form|}}
-        {{#paper-button primary=true disabled=form.isInvalid onClick=(action (toggle "isInEditView" this))}}
-          Save &amp; View Decklist
-        {{/paper-button}}
-      {{/decklist-editor}}
-    {{else}}
-      {{visual-decklist}}
-    {{/if}}
-  {{/paper-content}}
+  {{#if isInEditView}}
+    <h3>
+      Edit Decklist
+    </h3>
+    {{#decklist-editor as |form|}}
+      <button
+        disabled={{form.isInvalid}}
+        onclick={{action (toggle "isInEditView" this)}}
+      >
+        Save & View Decklist
+      </button>
+    {{/decklist-editor}}
+  {{else}}
+    {{visual-decklist}}
+  {{/if}}
 {{/mtg-loaded}}
-

@@ -1,13 +1,11 @@
 import { readOnly } from '@ember/object/computed';
 import { next } from '@ember/runloop';
 import Evented from '@ember/object/evented';
-import Service, {
-  inject as service
-} from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { parse } from 'mtg-tools/utils/deck-parser';
-import { preferredPrinting } from 'mtg-tools/services/mtg';
+import { preferredPrinting } from 'mtg-tools/utils/opinions';
 
 export default Service.extend(Evented, {
   mtg: service(),
@@ -17,12 +15,7 @@ export default Service.extend(Evented, {
     },
     set(key, value) {
       this.set('_raw', value);
-      next(() =>
-        this.trigger(
-          'rawUpdated',
-          value
-        )
-      );
+      next(() => this.trigger('rawUpdated', value));
       return value;
     }
   }),
@@ -39,75 +32,34 @@ export default Service.extend(Evented, {
   decklist: computed('raw', function() {
     return parse(this.get('raw'));
   }),
-  mtgJsonCards: computed(
-    'mtgJsonMaindeckCards',
-    'mtgJsonSideboardCards',
-    function() {
-      return this.get(
-        'mtgJsonMaindeckCards'
-      ).concat(
-        this.get(
-          'mtgJsonSideboardCards'
-        )
+  mtgJsonCards: computed('mtgJsonMaindeckCards', 'mtgJsonSideboardCards', function() {
+    return this.get('mtgJsonMaindeckCards').concat(this.get('mtgJsonSideboardCards'));
+  }),
+  mtgJsonMaindeckCards: computed('decklist', function() {
+    return this.get('decklist.cards')
+      .map(x => this.toCard(x))
+      .reject(card => isEmpty(card.printings));
+  }),
+  mtgJsonSideboardCards: computed('decklist', function() {
+    return this.get('decklist.sideboard')
+      .map(x => this.toCard(x))
+      .reject(card => isEmpty(card.printings));
+  }),
+  desiredCards: readOnly('mtgJsonCards'),
+  desiredCardsWithoutBasicLands: computed('desiredCards', function() {
+    return this.get('desiredCards').reject(card => {
+      return (
+        card.printings[0].types.includes('Land') &&
+        card.printings[0].supertypes &&
+        card.printings[0].supertypes.includes('Basic')
       );
-    }
-  ),
-  mtgJsonMaindeckCards: computed(
-    'decklist',
-    function() {
-      return this.get('decklist.cards')
-        .map(x => this.toCard(x))
-        .reject(card =>
-          isEmpty(card.printings)
-        );
-    }
-  ),
-  mtgJsonSideboardCards: computed(
-    'decklist',
-    function() {
-      return this.get(
-        'decklist.sideboard'
-      )
-        .map(x => this.toCard(x))
-        .reject(card =>
-          isEmpty(card.printings)
-        );
-    }
-  ),
-  desiredCards: readOnly(
-    'mtgJsonCards'
-  ),
-  desiredCardsWithoutBasicLands: computed(
-    'desiredCards',
-    function() {
-      return this.get(
-        'desiredCards'
-      ).reject(card => {
-        return (
-          card.printings[0].types.includes(
-            'Land'
-          ) &&
-          card.printings[0]
-            .supertypes &&
-          card.printings[0].supertypes.includes(
-            'Basic'
-          )
-        );
-      });
-    }
-  ),
-  problemCards: computed(
-    'mtgJsonCards.[]',
-    function() {
-      const decklist = this.get(
-        'decklist'
-      );
-      return decklist.cards
-        .concat(decklist.sideboard)
-        .map(x => this.toCard(x))
-        .filter(card =>
-          isEmpty(card.printings)
-        );
-    }
-  )
+    });
+  }),
+  problemCards: computed('mtgJsonCards.[]', function() {
+    const decklist = this.get('decklist');
+    return decklist.cards
+      .concat(decklist.sideboard)
+      .map(x => this.toCard(x))
+      .filter(card => isEmpty(card.printings));
+  })
 });

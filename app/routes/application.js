@@ -5,10 +5,5 @@ export default Route.extend({
     deck: {
       replace: true
     }
-  },
-  actions: {
-    toggleIsSidenavOpen() {
-      this.toggleProperty('controller.isSidenavOpen');
-    }
   }
 });

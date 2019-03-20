@@ -1,39 +1,48 @@
-<div flex layout-gt-xs="row" class="visual-decklist">
-  <div flex="50">
-    {{#if creatures}}
-      {{#paper-list}}
-        {{#paper-subheader}}Creatures ({{sum-cards creatures}}){{/paper-subheader}}
-        {{#each (sort-cards creatures) as |card|}}
-          {{visual-decklist/card card=card}}
-        {{/each}}
-      {{/paper-list}}
-    {{/if}}
-    {{#if spells}}
-      {{#paper-list}}
-        {{#paper-subheader}}Spells ({{sum-cards spells}}){{/paper-subheader}}
-        {{#each (sort-cards spells) as |card|}}
-          {{visual-decklist/card card=card}}
-        {{/each}}
-      {{/paper-list}}
-    {{/if}}
-  </div>
-  <div flex="50">
-    {{#if lands}}
-      {{#paper-list}}
-        {{#paper-subheader}}Lands ({{sum-cards lands}}){{/paper-subheader}}
-        {{#each (sort-cards lands) as |card|}}
-          {{visual-decklist/card card=card}}
-        {{/each}}
-      {{/paper-list}}
-    {{/if}}
-    {{#if sideboard}}
-      {{#paper-list}}
-        {{#paper-subheader}}Sideboard ({{sum-cards sideboard}}){{/paper-subheader}}
-        {{#each (sort-cards sideboard) as |card|}}
-          {{visual-decklist/card card=card}}
-        {{/each}}
-      {{/paper-list}}
-    {{/if}}
-  </div>
-</div>
-
+{{#if creatures}}
+  <ul>
+    <li class="subhead">
+      Creatures (
+      {{sum-cards creatures}}
+      )
+    </li>
+    {{#each (sort-cards creatures) as |card|}}
+      {{visual-decklist/card card=card}}
+    {{/each}}
+  </ul>
+{{/if}}
+{{#if spells}}
+  <ul>
+    <li class="subhead">
+      Spells (
+      {{sum-cards spells}}
+      )
+    </li>
+    {{#each (sort-cards spells) as |card|}}
+      {{visual-decklist/card card=card}}
+    {{/each}}
+  </ul>
+{{/if}}
+{{#if lands}}
+  <ul>
+    <li class="subhead">
+      Lands (
+      {{sum-cards lands}}
+      )
+    </li>
+    {{#each (sort-cards lands) as |card|}}
+      {{visual-decklist/card card=card}}
+    {{/each}}
+  </ul>
+{{/if}}
+{{#if sideboard}}
+  <ul>
+    <li class="subhead">
+      Sideboard (
+      {{sum-cards sideboard}}
+      )
+    </li>
+    {{#each (sort-cards sideboard) as |card|}}
+      {{visual-decklist/card card=card}}
+    {{/each}}
+  </ul>
+{{/if}}

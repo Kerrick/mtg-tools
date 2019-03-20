@@ -1,25 +1,31 @@
-{{#paper-sidenav-container}}
-  {{#paper-sidenav class="md-whiteframe-z2" lockedOpen="gt-sm" name="left"
-    open=isSidenavOpen onToggle=(action (mut isSidenavOpen))}}
-    {{#paper-toolbar tall=true}}
-      <div class="layout-column layout-align-center-center">
-        <h1>MTG Tools</h1>
-      </div>
-    {{/paper-toolbar}}
-
-    {{#paper-content}}
-
-      {{#paper-list}}
-        {{#paper-item class=(if (eq "index" currentRouteName) "active") onClick=(transition-to "index")}}Introduction{{/paper-item}}
-        {{#paper-item class=(if (eq "share" currentRouteName) "active") onClick=(transition-to "share")}}Share a Deck{{/paper-item}}
-        {{#paper-item class=(if (or (eq "playtest-cards.print" currentRouteName) (eq "playtest-cards.index" currentRouteName)) "active") onClick=(transition-to "playtest-cards")}}Playtest Card Printer{{/paper-item}}
-        {{#paper-item class=(if (eq "triplets" currentRouteName) "active") onClick=(transition-to "triplets")}}Triplets{{/paper-item}}
-        {{#paper-item class=(if (eq "stream-view" currentRouteName) "active") onClick=(transition-to "stream-view")}}Stream View (beta){{/paper-item}}
-      {{/paper-list}}
-
-    {{/paper-content}}
-  {{/paper-sidenav}}
-  <div flex layout="column">
-    {{outlet}}
-  </div>
-{{/paper-sidenav-container}}
+<h1>
+  MTG Tools
+</h1>
+<ul>
+  <li>
+    {{#link-to "index"}}
+      Introduction
+    {{/link-to}}
+  </li>
+  <li>
+    {{#link-to "share"}}
+      Share a Deck
+    {{/link-to}}
+  </li>
+  <li>
+    {{#link-to "playtest-cards"}}
+      Playtest Card Printer
+    {{/link-to}}
+  </li>
+  <li>
+    {{#link-to "triplets"}}
+      Triplets Generator
+    {{/link-to}}
+  </li>
+  <li>
+    {{#link-to "stream-view"}}
+      Stream View
+    {{/link-to}}
+  </li>
+</ul>
+{{outlet}}

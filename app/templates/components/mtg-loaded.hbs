@@ -1,8 +1,6 @@
 {{#if mtg.isLoading}}
   {{#if show-spinner}}
-    <div full-height layout layout-align="center center">
-      {{paper-progress-circular}}
-    </div>
+    Loading...
   {{/if}}
   {{yield to="inverse"}}
 {{else}}

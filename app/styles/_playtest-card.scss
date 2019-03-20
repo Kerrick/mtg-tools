@@ -1,0 +1,73 @@
+.playtest-card {
+  position: relative;
+  display: inline-block;
+
+  .printing-chooser {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+  }
+
+  @media screen {
+    &:hover .printing-chooser {
+      display: block;
+    }
+  }
+
+  .huge-name {
+    position: absolute;
+    background: white;
+    color: black;
+    z-index: 1;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    padding: 5px;
+    overflow: hidden;
+    word-break: normal;
+    overflow-wrap: normal;
+    width: 48.2mm;
+    height: 34.8mm;
+    top: 9.3mm;
+    left: 4.6mm;
+  }
+
+  &.card-layout-flip .huge-name {
+    top: 26.3mm;
+    height: 26mm;
+  }
+
+  &.card-layout-split .huge-name {
+    transform: -webkit-rotate(270deg);
+    transform: -moz-rotate(270deg);
+    transform: -ms-rotate(270deg);
+    transform: -o-rotate(270deg);
+    transform: rotate(270deg);
+    top: 29.9mm;
+    left: -15.8mm;
+    width: 71mm;
+    height: 21.2mm;
+  }
+
+  &.card-frame-1993 .huge-name {
+    top: 7.8mm;
+    left: 6.5mm;
+    width: 44.2mm;
+    height: 35mm;
+  }
+
+  &.card-frame-1997 .huge-name {
+    top: 8.1mm;
+    left: 6.8mm;
+    width: 43.8mm;
+    height: 34.6mm;
+  }
+
+  &--print img {
+    width: 60mm;
+    height: auto;
+  }
+}

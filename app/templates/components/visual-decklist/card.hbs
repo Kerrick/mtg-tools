@@ -1,5 +1,11 @@
 {{#with card.printings.firstObject as |printing|}}
-  {{#paper-item class="md-2-line" onClick=(action "gatherer" printing)}}
+  <a
+    target="_blank"
+    href={{concat
+      "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseId="
+      printing.multiverseId
+    }}
+  >
     <div
       class="card-image md-avatar"
       style={{concat
@@ -20,5 +26,5 @@
         {{printing.text}}
       </p>
     </div>
-  {{/paper-item}}
+  </a>
 {{/with}}
