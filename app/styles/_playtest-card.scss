@@ -2,6 +2,11 @@
   position: relative;
   display: inline-block;
 
+  * {
+    /*  Because I did all the work to line everything up before switching the site to border-box */
+    box-sizing: content-box;
+  }
+
   .printing-chooser {
     display: none;
     position: absolute;

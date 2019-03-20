@@ -1,7 +1,30 @@
+@import './globals';
+@import './site-header';
 @import './visual-decklist';
 @import './playtest-card';
 @import './stream-view';
 @import './triplets';
+
+* {
+  box-sizing: border-box;
+  text-decoration-skip-ink: auto;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+main {
+  padding: 1em;
+}
+
+footer {
+  padding: 1em;
+}
 
 .playtest-cards {
   font-size: 0;
@@ -16,11 +39,10 @@
 }
 
 @media print {
-  body > div.ember-view {
-    height: auto;
-    & > *:not(.printable) {
-      display: none;
-    }
+  header,
+  footer,
+  main > :not(.printable) {
+    display: none !important;
   }
 }
 

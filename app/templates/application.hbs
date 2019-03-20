@@ -1,31 +1,45 @@
-<h1>
-  MTG Tools
-</h1>
-<ul>
-  <li>
-    {{#link-to "index"}}
-      Introduction
-    {{/link-to}}
-  </li>
-  <li>
-    {{#link-to "share"}}
-      Share a Deck
-    {{/link-to}}
-  </li>
-  <li>
-    {{#link-to "playtest-cards"}}
-      Playtest Card Printer
-    {{/link-to}}
-  </li>
-  <li>
-    {{#link-to "triplets"}}
-      Triplets Generator
-    {{/link-to}}
-  </li>
-  <li>
-    {{#link-to "stream-view"}}
-      Stream View
-    {{/link-to}}
-  </li>
-</ul>
-{{outlet}}
+<header class="site-header">
+  {{#link-to "index" class="site-header__logo"}}
+    MTG Tools
+  {{/link-to}}
+  <ul class="site-header__nav">
+    <li class="site-header__nav-item">
+      {{#link-to "index" class="site-header__nav-item-link"}}
+        Introduction
+      {{/link-to}}
+    </li>
+    <li class="site-header__nav-item">
+      {{#link-to "share" class="site-header__nav-item-link"}}
+        Share Deck
+      {{/link-to}}
+    </li>
+    <li class="site-header__nav-item">
+      {{#link-to "playtest-cards" class="site-header__nav-item-link"}}
+        Proxies
+      {{/link-to}}
+    </li>
+    <li class="site-header__nav-item">
+      {{#link-to "triplets" class="site-header__nav-item-link"}}
+        Triplets
+      {{/link-to}}
+    </li>
+    <li class="site-header__nav-item">
+      {{#link-to "stream-view" class="site-header__nav-item-link"}}
+        Stream View
+      {{/link-to}}
+    </li>
+  </ul>
+</header>
+<main>
+  {{outlet}}
+</main>
+<footer>
+  All this stuff is
+  <a href="https://choosealicense.com/licenses/mit/">
+    open source
+  </a>
+  .
+  <a href="https://github.com/Kerrick/mtg-tools">
+    GitHub Repo
+  </a>
+</footer>

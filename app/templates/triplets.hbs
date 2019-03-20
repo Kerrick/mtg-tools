@@ -5,7 +5,9 @@
   <form class="triplets-form">
     <label
       class="triplets-form__field triplets-form__field--primary
-        {{if (and primary (not primaryPrinting)) "triplets-form__field--error"
+        {{if
+          (and primary (not (card-exists primary)))
+          "triplets-form__field--error"
         }}"
     >
       Primary Card
@@ -13,24 +15,26 @@
     </label>
     <label
       class="triplets-form__field triplets-form__field--left
-        {{if (and left (not leftPrinting)) "triplets-form__field--error"}}"
+        {{if (and left (not (card-exists left))) "triplets-form__field--error"
+        }}"
     >
       Left Card
       {{input value=left}}
     </label>
     <button class="triplets-form__swap" {{action "swap"}}>
-      SWAP
+      ↔
     </button>
     <label
       class="triplets-form__field tripletsform__field--right
-        {{if (and right (not rightPrinting)) "triplets-form__field--error"}}"
+        {{if (and right (not (card-exists right))) "triplets-form__field--error"
+        }}"
     >
       Right Card
       {{input value=right}}
     </label>
   </form>
   <div class="triplets-photo">
-    {{#if primaryPrinting}}
+    {{#if (card-exists primary)}}
       {{playtest-card
         name=primary
         width=265
@@ -38,7 +42,7 @@
         class="triplets-photo__image triplets-photo__image--primary"
       }}
     {{/if}}
-    {{#if leftPrinting}}
+    {{#if (card-exists left)}}
       {{playtest-card
         name=left
         width=265
@@ -46,7 +50,7 @@
         class="triplets-photo__image triplets-photo__image--left"
       }}
     {{/if}}
-    {{#if rightPrinting}}
+    {{#if (card-exists right)}}
       {{playtest-card
         name=right
         width=265

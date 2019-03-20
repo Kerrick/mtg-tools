@@ -1,0 +1,62 @@
+$bar-size: 600px;
+
+.site-header {
+  background: var(--dark-bg);
+  color: var(--dark-fg);
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $bar-size) {
+    flex-direction: row;
+  }
+
+  &__logo {
+    margin: 0;
+    font: bold 28px sans-serif;
+    background: linear-gradient(to right, var(--brand-a), var(--brand-b));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  &__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    display: grid;
+    margin-top: 0.5em;
+    grid-gap: 0.5em;
+    align-items: center;
+    justify-content: right;
+    grid-template-columns: 1fr 1fr;
+
+    @media (min-width: $bar-size) {
+      grid-template-columns: repeat(auto-fit, minmax(30px, max-content));
+      grid-gap: 1em;
+      margin-top: 0;
+    }
+
+    &-item {
+      text-align: center;
+
+      &-link {
+        color: var(--dark-fg);
+        text-decoration: none;
+
+        &:focus,
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.active {
+          color: var(--brand-b);
+        }
+      }
+    }
+  }
+}
