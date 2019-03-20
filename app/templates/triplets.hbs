@@ -7,55 +7,57 @@
 {{#mtg-loaded}}
   {{#paper-content class="md-padding"}}
     <form class="triplets-form">
-      <label class="triplets-form__field triplets-form__field--primary {{if (and primary (not primaryPrinting)) "triplets-form__field--error"}}">
+      <label
+        class="triplets-form__field triplets-form__field--primary
+          {{if (and primary (not primaryPrinting)) "triplets-form__field--error"
+          }}"
+      >
         Primary Card
         {{input value=primary}}
       </label>
-      <label class="triplets-form__field triplets-form__field--left {{if (and left (not leftPrinting)) "triplets-form__field--error"}}">
+      <label
+        class="triplets-form__field triplets-form__field--left
+          {{if (and left (not leftPrinting)) "triplets-form__field--error"}}"
+      >
         Left Card
         {{input value=left}}
       </label>
       <button class="triplets-form__swap" {{action "swap"}}>
         {{paper-icon "swap_horiz"}}
       </button>
-      <label class="triplets-form__field tripletsform__field--right {{if (and right (not rightPrinting)) "triplets-form__field--error"}}">
+      <label
+        class="triplets-form__field tripletsform__field--right
+          {{if (and right (not rightPrinting)) "triplets-form__field--error"}}"
+      >
         Right Card
         {{input value=right}}
       </label>
     </form>
-    
     <div class="triplets-photo">
       {{#if primaryPrinting}}
-        <img
+        {{playtest-card
+          name=primary
+          width=265
+          height=370
           class="triplets-photo__image triplets-photo__image--primary"
-          width="265"
-          height="370"
-          alt={{primaryPrinting.name}}
-          title={{concat primaryPrinting.name " - " primaryPrinting.set.code}}
-          src="https://api.scryfall.com/cards/{{lowercase primaryPrinting.set.code}}/{{primaryPrinting.number}}?format=image&version=large"
-        />
+        }}
       {{/if}}
       {{#if leftPrinting}}
-        <img
+        {{playtest-card
+          name=left
+          width=265
+          height=370
           class="triplets-photo__image triplets-photo__image--left"
-          width="265"
-          height="370"
-          alt={{leftPrinting.name}}
-          title={{concat leftPrinting.name " - " leftPrinting.set.code}}
-          src="https://api.scryfall.com/cards/{{lowercase leftPrinting.set.code}}/{{leftPrinting.number}}?format=image&version=large"
-        />
+        }}
       {{/if}}
       {{#if rightPrinting}}
-        <img
+        {{playtest-card
+          name=right
+          width=265
+          height=370
           class="triplets-photo__image triplets-photo__image--right"
-          width="265"
-          height="370"
-          alt={{rightPrinting.name}}
-          title={{concat rightPrinting.name " - " rightPrinting.set.code}}
-          src="https://api.scryfall.com/cards/{{lowercase rightPrinting.set.code}}/{{rightPrinting.number}}?format=image&version=large"
-        />
+        }}
       {{/if}}
     </div>
   {{/paper-content}}
 {{/mtg-loaded}}
-

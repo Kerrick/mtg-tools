@@ -1,5 +1,5 @@
-@import "ember-paper";
-@import "color-palette";
+@import 'ember-paper';
+@import 'color-palette';
 
 body > div.ember-view {
   height: 100%;
@@ -11,7 +11,10 @@ body > div.ember-view {
 }
 
 md-toolbar.md-default-theme.main-toolbar {
-  background-color: color("grey", "100");
+  background-color: color(
+    'grey',
+    '100'
+  );
   color: $dark-contrast-color;
 
   md-icon,
@@ -22,7 +25,7 @@ md-toolbar.md-default-theme.main-toolbar {
 
 md-sidenav {
   md-list-item.active {
-    color: color("indigo");
+    color: color('indigo');
   }
 }
 
@@ -39,7 +42,10 @@ md-sidenav {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: -2px;
-    background: radial-gradient(rgba(0, 0, 0, 0.33) 0%, transparent 50%);
+    background: radial-gradient(
+      rgba(0, 0, 0, 0.33) 0%,
+      transparent 50%
+    );
     display: block;
     border-radius: 50%;
   }
@@ -127,7 +133,7 @@ md-sidenav {
     height: 34.6mm;
   }
 
-  img {
+  &--print img {
     width: 60mm;
     height: auto;
   }
@@ -185,7 +191,8 @@ $stream-view-item-background: #222;
     z-index: 2;
     color: white;
     font-weight: bold;
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+    text-shadow: -1px -1px 0 black,
+      1px -1px 0 black, -1px 1px 0 black,
       1px 1px 0 black;
   }
 
@@ -194,8 +201,16 @@ $stream-view-item-background: #222;
     padding-left: 0.33em;
     background: linear-gradient(
       to right,
-      rgba($stream-view-item-background, 1) 26px,
-      rgba($stream-view-item-background, 0) 52px
+      rgba(
+          $stream-view-item-background,
+          1
+        )
+        26px,
+      rgba(
+          $stream-view-item-background,
+          0
+        )
+        52px
     );
     overflow: hidden;
     text-overflow: ellipsis;
@@ -272,7 +287,7 @@ $stream-view-item-background: #222;
   border-radius: 12px;
 
   &::before {
-    content: " ";
+    content: ' ';
     display: block;
     position: absolute;
     top: 0;
@@ -286,17 +301,24 @@ $stream-view-item-background: #222;
       rgba(0, 0, 0, 0.65) 100%
     );
     z-index: 3;
+    pointer-events: none;
   }
 
   &__image {
     position: absolute;
     top: 0;
     border-radius: 12px;
+    width: 265px;
+    height: 370px;
 
     &--primary {
       left: calc(50% - (265px / 2));
       z-index: 2;
-      filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.4)) contrast(1.1);
+      filter: contrast(1.1);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 0px 3px
+        rgba(0, 0, 0, 0.4);
     }
 
     &--left {

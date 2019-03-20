@@ -10,31 +10,41 @@
       {{#card.content}}
         <ul>
           {{#each decklist.problemCards as |card|}}
-            <li>{{card.name}}</li>
+            <li>
+              {{card.name}}
+            </li>
           {{/each}}
         </ul>
       {{/card.content}}
       {{#card.actions}}
-        {{#paper-button primary=true onClick=(transition-to "playtest-cards.index")}}Edit Decklist{{/paper-button}}
+        {{#paper-button
+          primary=true
+          onClick=(transition-to "playtest-cards.index")
+        }}
+          Edit Decklist
+        {{/paper-button}}
       {{/card.actions}}
     {{/paper-card}}
   {{/if}}
   <div class="options">
-    {{#paper-switch value=showBasicLands onChange=(action (mut showBasicLands))}}
-    {{#unless showBasicLands}}Not{{/unless}} Showing Basic Lands
+    {{#paper-switch value=showBasicLands onChange=(action (mut showBasicLands))
+    }}
+      {{#unless showBasicLands}}
+        Not
+      {{/unless}}
+      Showing Basic Lands
     {{/paper-switch}}
   </div>
   <div class="playtest-cards printable">
-    {{#each (if showBasicLands decklist.desiredCards decklist.desiredCardsWithoutBasicLands) as |card|}}
+    {{#each
+      (if
+        showBasicLands
+        decklist.desiredCards
+        decklist.desiredCardsWithoutBasicLands
+      ) as |card|
+    }}
       {{#each (repeat card.count) as |i|}}
-        {{#with (or (get (find-by "card" card printingSelections) "printing") card.printings.firstObject) as |printing|}}
-          {{playtest-card
-            card=card
-            printing=printing
-            choose-printing=(action "printingChosen" card)
-            edit-text=(action "textEdited" card)
-          }}
-        {{/with}}
+        {{playtest-card name=card.name print=true width=223 height=312}}
       {{/each}}
     {{/each}}
   </div>

@@ -1,0 +1,38 @@
+<div
+  name={{printing.name}}
+  class={{concat
+    "playtest-card"
+    (if print " playtest-card--print")
+    " card-layout-"
+    printing.layout
+    " card-frame-"
+    printing.frameVersion
+    " "
+    (or class "")
+  }}
+>
+  <img
+    class="playtest-card-image"
+    width="{{width}}"
+    height="{{height}}"
+    alt={{printing.name}}
+    title={{concat printing.name " - " printing.set.code}}
+    src={{card-image-url printing.name}}
+   />
+
+  <select class="printing-chooser" onchange={{action "printingChosen"}}>
+    {{#each printings as |printingOption|}}
+      <option
+        value={{printingOption.set.code}}
+        selected={{eq printingOption printing}}
+      >
+        {{printingOption.set.name}}
+      </option>
+    {{/each}}
+  </select>
+  {{#if print}}
+    <span class="huge-name" contenteditable oninput={{action "textEdited"}}>
+      {{or (get userPreference.cardNames printing.name) printing.name}}
+    </span>
+  {{/if}}
+</div>
