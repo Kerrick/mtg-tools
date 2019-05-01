@@ -1,48 +1,24 @@
-{{#if creatures}}
-  <ul>
-    <li class="subhead">
-      Creatures (
-      {{sum-cards creatures}}
-      )
-    </li>
-    {{#each (sort-cards creatures) as |card|}}
-      {{visual-decklist/card card=card}}
-    {{/each}}
-  </ul>
-{{/if}}
-{{#if spells}}
-  <ul>
-    <li class="subhead">
-      Spells (
-      {{sum-cards spells}}
-      )
-    </li>
-    {{#each (sort-cards spells) as |card|}}
-      {{visual-decklist/card card=card}}
-    {{/each}}
-  </ul>
-{{/if}}
-{{#if lands}}
-  <ul>
-    <li class="subhead">
-      Lands (
-      {{sum-cards lands}}
-      )
-    </li>
-    {{#each (sort-cards lands) as |card|}}
-      {{visual-decklist/card card=card}}
-    {{/each}}
-  </ul>
-{{/if}}
-{{#if sideboard}}
-  <ul>
-    <li class="subhead">
-      Sideboard (
-      {{sum-cards sideboard}}
-      )
-    </li>
-    {{#each (sort-cards sideboard) as |card|}}
-      {{visual-decklist/card card=card}}
-    {{/each}}
-  </ul>
-{{/if}}
+<div class="visual-decklist">
+  {{#each maindeck as |section|}}
+    {{#if section.cards}}
+      <ul class="visual-decklist__section">
+        <li class="visual-decklist__section-title">
+          {{section.type}} ({{sum-cards section.cards}})
+        </li>
+        {{#each (sort-cards section.cards) as |card|}}
+          {{visual-decklist/card card=card}}
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/each}}
+  {{#if sideboard}}
+    <ul class="visual-decklist__section">
+      <li class="visual-decklist__section-title">
+        Sideboard ({{sum-cards sideboard}})
+      </li>
+      {{#each (sort-cards sideboard) as |card|}}
+        {{visual-decklist/card card=card}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>

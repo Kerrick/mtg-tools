@@ -1,27 +1,85 @@
+$img-width: 66px;
+
 .visual-decklist {
-  .card-image {
-    background-size: 64px;
-    background-position: 50% -10px;
+  columns: ($img-width * 4) auto;
+
+  &__section {
+    break-inside: avoid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .card-count {
-    text-align: center;
+  &__section-title {
+    font-size: 18px;
+    margin: 18px 0 9px;
     font-weight: bold;
-    text-shadow: 0px 0px 3px black;
-    color: white;
-    font-size: 24px;
-    line-height: 36px;
-    letter-spacing: -2px;
-    background: radial-gradient(
-      rgba(0, 0, 0, 0.33) 0%,
-      transparent 50%
-    );
-    display: block;
-    border-radius: 50%;
   }
-  .oracle-preview {
-    white-space: nowrap;
+}
+
+.visual-decklist-card {
+  break-inside: avoid;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 2px 0;
+
+  &--W { background-color: rgb(238,238,232); border-color: rgb(255,255,255); }
+  &--U { background-color: rgb(238,244,245); border-color: rgb(65,93,143); }
+  &--B { background-color: rgb(235,235,233); border-color: rgb(56,52,48); }
+  &--R { background-color: rgb(244,240,231); border-color: rgb(164,67,39); }
+  &--G { background-color: rgb(223,226,213); border-color: rgb(56,80,55); }
+  &--M { background-color: rgb(244,240,223); border-color: rgb(206,187,101); }
+  &--A { background-color: rgb(/* Actually 205,205,205 */ 224, 224, 224); border-color: rgb(240, 240, 240); }
+  &--L { background-color: rgb(/* Actually 206,202,190 */ 226, 222, 210); border-color: rgb(140,126,114); }
+
+  &__link {
+    display: flex;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    height: 48px;
     overflow: hidden;
-    max-width: 205px;
+  }
+
+  &__image {
+    align-self: center;
+    width: $img-width;
+    height: auto;
+  }
+
+  &__count {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: $img-width;
+    font-size: 24px;
+    color: white;
+    text-shadow: 0px 0px 3px black;
+    text-align: center;
+  }
+
+  &__content {
+    flex-grow: 1;
+    overflow: hidden;
+    margin: 0;
+    padding: 4px 8px;
+  }
+
+  &__name {
+    font-size: 18px;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__oracle-text {
+    margin: 0;
+    height: 20px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

@@ -2,10 +2,10 @@
   Playtest Card Printer
 </h2>
 {{#if isInPrintView}}
-  {{#link-to "playtest-cards.index"}}
-    (edit)
+  {{#link-to "playtest-cards.index" class="button button--secondary"}}
+    Edit Decklist
   {{/link-to}}
-  <button onclick={{action "print"}}>
+  <button onclick={{action "print"}} class="button button--primary">
     Print
   </button>
 {{/if}}

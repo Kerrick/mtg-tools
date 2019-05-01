@@ -43,7 +43,8 @@ export const TYPE_ORDER = [
   'Vanguard'
 ];
 
-// U.G.L.Y. You ain't got no alibi
+// Some of these are actually beautiful, but they don't translate
+// well with a hidden art box as playtest cards from a home printer.
 const isUgly = card =>
   card.set.type === 'future' ||
   card.borderColor !== 'black' ||
@@ -53,6 +54,13 @@ const isUgly = card =>
 // ...except [[Liquid Fire]]. That has some TERRIBLE oracle text.
 const hasErrata = card => card.originalText !== card.text;
 
+// This is mostly to prevent Tempest Remastered basic lands
+// from being chosen over the latest core set's basic lands.
+const isOnlineOnly = card => card.set.isOnlineOnly;
+
+// Watermarks make things harder to read on home printers.
+const hasWatermark = card => !!card.watermark;
+
 // Here's where we get opinionated about our opinions,
 // and which opinions take priority over others.
 export const preferredPrinting = (a, b) =>
@@ -61,6 +69,8 @@ export const preferredPrinting = (a, b) =>
     sortByTest(hasErrata)(a, b),
     sortByTest(isUgly)(a, b),
     sortByIndex(FRAME_VERSION_ORDER)(a.frameVersion, b.frameVersion),
+    sortByTest(isOnlineOnly)(a, b),
+    sortByTest(hasWatermark)(a, b),
     sortByIndex(SET_TYPE_ORDER)(a.set.type, b.set.type),
     sortByValue(new Date(b.set.releaseDate).getTime(), new Date(a.set.releaseDate).getTime()),
     sortByValue(a.multiverseId, b.multiverseId)

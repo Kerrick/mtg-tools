@@ -2,7 +2,11 @@
   Edit Decklist
 </h3>
 {{#decklist-editor as |form|}}
-  {{#link-to "playtest-cards.print" disabled=form.isInvalid}}
+  {{#link-to
+    "playtest-cards.print"
+    disabled=form.isInvalid
+    class="button button--primary"
+  }}
     Print Playtest Cards
   {{/link-to}}
 {{/decklist-editor}}

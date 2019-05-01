@@ -1,10 +1,11 @@
-import { copy } from '@ember/object/internals';
+import { cloneDeep } from 'lodash';
 import { readOnly } from '@ember/object/computed';
 import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 import ObjectProxy from '@ember/object/proxy';
 import { computed } from '@ember/object';
 import Service from '@ember/service';
-import { sortInOrder, sortByValue, sortByIndex } from 'mtg-tools/utils/sorting';
+import { sortInOrder, sortByValue, sortByIndex, sortByTest } from 'mtg-tools/utils/sorting';
+import { deepFreeze } from 'mtg-tools/utils/fns';
 import { TYPE_ORDER } from 'mtg-tools/utils/opinions';
 
 const normalize = str =>
@@ -13,6 +14,8 @@ const normalize = str =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace('’', "'");
+
+const CARD_CACHE = {};
 
 const firstMatch = (allSets, test) => {
   const allSetCodes = Object.keys(allSets).reverse();
@@ -35,11 +38,14 @@ const firstMatch = (allSets, test) => {
 };
 
 const firstType = card => card.types.find(x => TYPE_ORDER.includes(x));
+const isBasic = card => card.supertypes.includes('Basic');
+
 export const decklistSort = (a, b) => {
   const [aPrinting] = a.printings;
   const [bPrinting] = b.printings;
   return sortInOrder(
     sortByIndex(TYPE_ORDER)(firstType(aPrinting), firstType(bPrinting)),
+    sortByTest(isBasic)(bPrinting, aPrinting),
     sortByValue(parseInt(aPrinting.convertedManaCost), parseInt(bPrinting.convertedManaCost)),
     sortByValue(aPrinting.name, bPrinting.name)
   );
@@ -55,18 +61,27 @@ export default Service.extend({
   }),
   isLoading: readOnly('allSets.isPending'),
   cardsNamed(name) {
-    const cards = [];
-    Object.keys(this.get('allSets.content')).filter(setCode => {
+    if (CARD_CACHE[name]) {
+      return CARD_CACHE[name];
+    }
+
+    const cards = Object.keys(this.get('allSets.content')).map(setCode => {
       const found = this.get(`allSets.content.${setCode}.cards`).find(card => normalize(card.name) === normalize(name));
       if (!found || !found.multiverseId) {
         return false;
       }
-      const card = copy(found, true);
-      card.set = copy(this.get(`allSets.content.${setCode}`), false);
-      delete card.set.cards;
-      cards.push(card);
-      return true;
+      return [setCode, found];
+    }).filter(Boolean).map(([setCode, found]) => {
+      const set = cloneDeep(this.get(`allSets.content.${setCode}`))
+      delete set.cards;
+      const card = deepFreeze({
+        ...cloneDeep(found),
+        set
+      });
+      return card;
     });
+
+    CARD_CACHE[name] = cards;
     return cards;
   },
   nameFormultiverseId(id) {
