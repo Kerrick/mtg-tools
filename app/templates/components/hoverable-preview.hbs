@@ -1,0 +1,9 @@
+{{#if this.isHovering}}
+  <div class="hoverable-preview hoverable-preview--visible" style={{html-safe (concat "left: " this.x "px; top: " this.y "px;" "width: " this.width "px;")}}>
+    <img
+      class="hoverable-preview__image"
+      alt={{@card.printings.firstObject.name}}
+      src={{card-image-url @card.printings.firstObject.name}}
+     />
+  </div>
+{{/if}}

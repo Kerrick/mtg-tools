@@ -1,9 +1,9 @@
 <li class="visual-decklist-card visual-decklist-card--{{bgStyle}}">
+  {{hoverable-preview card=card}}
   {{#let card.printings.firstObject as |printing|}}
     <a
       class="visual-decklist-card__link"
       target="_blank"
-      title={{printing.text}}
       href={{concat
         "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseId="
         printing.multiverseId
