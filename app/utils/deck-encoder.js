@@ -11,7 +11,10 @@ export const encode = decklist => {
 
 export const decode = (encoded, findName) => {
   // Backwards Compatibility with old encoding characters
-  encoded = encoded.replace(/:/g,'x').replace(/\|/g, '_').replace(/,/g, '-');
+  encoded = encoded
+    .replace(/:/g, 'x')
+    .replace(/\|/g, '_')
+    .replace(/,/g, '-');
 
   const [main, side] = encoded.split('_').map(enc => {
     return enc.split('-').map(pair => {

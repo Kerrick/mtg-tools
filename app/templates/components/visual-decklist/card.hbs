@@ -5,8 +5,11 @@
       class="visual-decklist-card__link"
       target="_blank"
       href={{concat
-        "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseId="
-        printing.multiverseId
+        "https://scryfall.com/card/"
+        (lowercase printing.set.code)
+        "/"
+        printing.number
+        "/"
       }}
     >
       <img

@@ -9,37 +9,37 @@ export default Component.extend({
   tagName: '',
   decklist: service(),
   maindeck: computed('decklist.mtgJsonMaindeckCards.[]', function() {
-    return Object.entries(this.get('decklist.mtgJsonMaindeckCards').reduce((grouped, card) => {
-      if (isType(card, 'Land')) {
-        // This should catch Land Creatures.
-        grouped.Lands.push(card);
-      }
-      else if (isType(card, 'Planeswalker')) {
-        grouped.Planeswalkers.push(card);
-      }
-      else if (isType(card, 'Creature')) {
-        // This should catch Artifact Creatures and Enchantment Creatures.
-        grouped.Creatures.push(card);
-      }
-      else if (isType(card, 'Artifact')) {
-        // This should catch Artifact Enchantments
-        grouped.Artifacts.push(card);
-      }
-      else if (isType(card, 'Enchantment')) {
-        grouped.Enchantments.push(card);
-      }
-      else {
-        grouped.Spells.push(card);
-      }
-      return grouped;
-    }, {
-      Creatures: [],
-      Planeswalkers: [],
-      Artifacts: [],
-      Enchantments: [],
-      Spells: [],
-      Lands: [],
-    })).map(([key, value]) => ({ type: key, cards: value }));
+    return Object.entries(
+      this.get('decklist.mtgJsonMaindeckCards').reduce(
+        (grouped, card) => {
+          if (isType(card, 'Land')) {
+            // This should catch Land Creatures.
+            grouped.Lands.push(card);
+          } else if (isType(card, 'Planeswalker')) {
+            grouped.Planeswalkers.push(card);
+          } else if (isType(card, 'Creature')) {
+            // This should catch Artifact Creatures and Enchantment Creatures.
+            grouped.Creatures.push(card);
+          } else if (isType(card, 'Artifact')) {
+            // This should catch Artifact Enchantments
+            grouped.Artifacts.push(card);
+          } else if (isType(card, 'Enchantment')) {
+            grouped.Enchantments.push(card);
+          } else {
+            grouped.Spells.push(card);
+          }
+          return grouped;
+        },
+        {
+          Creatures: [],
+          Planeswalkers: [],
+          Artifacts: [],
+          Enchantments: [],
+          Spells: [],
+          Lands: []
+        }
+      )
+    ).map(([key, value]) => ({ type: key, cards: value }));
   }),
   lands: computed('decklist.mtgJsonMaindeckCards.[]', function() {
     return this.get('decklist.mtgJsonMaindeckCards').filter(card => {
